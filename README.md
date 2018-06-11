@@ -1,5 +1,6 @@
 # WaGi's IP-Blacklister (Windows Firewall)
-[>Executable Download<](https://ip-blacklister.wagi-coding.com/IP-Blacklister-v1-2-9.zip "WaGi-Coding")  
+[>DOWNLOAD HERE<](/releases/)  
+ 
 ![Application Overview](https://i.imgur.com/uBFNba4.png)
 
 
