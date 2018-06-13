@@ -71,45 +71,48 @@ namespace WaGis_IP_Blacklister
             }
             //////////////////////
 
-            this.Text = $"WaGi's IP-Blacklister - v{Application.ProductVersion}";
-            btnDeleteAll.BackColor = Color.FromArgb(255, 180, 0, 0);
-
-            ///////LOAD HERE////
-            btnLoadSettings.PerformClick();
-            ///////////////////            
-
-            // Maybe Check for Updates - NOT DONE
-            try
+            if (IsAdministrator())
             {
-                newV = WaGiRequest("https://api.github.com/repos/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases/latest");
+                this.Text = $"WaGi's IP-Blacklister - v{Application.ProductVersion}";
+                btnDeleteAll.BackColor = Color.FromArgb(255, 180, 0, 0);
 
-                JObject jObject = JObject.Parse(newV);
-                newV = Convert.ToString(jObject.SelectToken("tag_name"));
+                ///////LOAD HERE////
+                btnLoadSettings.PerformClick();
+                ///////////////////            
+
+                // Maybe Check for Updates - NOT DONE
+                try
+                {
+                    newV = WaGiRequest("https://api.github.com/repos/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases/latest");
+
+                    JObject jObject = JObject.Parse(newV);
+                    newV = Convert.ToString(jObject.SelectToken("tag_name"));
+                }
+                catch (Exception)
+                {
+                }
+
+                var versionNow = new Version(Application.ProductVersion);
+                var versionWeb = new Version(newV);
+
+                var result = versionNow.CompareTo(versionWeb);
+
+                if (result < 0)
+                {
+                    //MessageBox.Show($"New version {versionWeb} available! Your version: {Application.ProductVersion}");
+                    Update updateform = new Update();
+                    updateform.ShowDialog();
+                    updateToolStripMenuItem.Visible = true;
+                    timerUpdateBlink.Start();
+                }
+
+                /////////////////////////
+
+                HideCaret(richTextBox2.Handle);
+                richtbList.SelectionStart = richtbList.Text.Length;
+                firewallPolicy = (INetFwPolicy2)Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2"));
             }
-            catch (Exception)
-            {
-                throw;
-            }
-
-            var versionNow = new Version(Application.ProductVersion);
-            var versionWeb = new Version(newV);
-
-            var result = versionNow.CompareTo(versionWeb);
-
-            if (result < 0)
-            {
-                //MessageBox.Show($"New version {versionWeb} available! Your version: {Application.ProductVersion}");
-                Update updateform = new Update();
-                updateform.ShowDialog();
-                updateToolStripMenuItem.Visible = true;
-                timerUpdateBlink.Start();
-            }
-
-            /////////////////////////
-
-            HideCaret(richTextBox2.Handle);
-            richtbList.SelectionStart = richtbList.Text.Length;
-            firewallPolicy = (INetFwPolicy2)Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2"));            
+                        
         }
 
         private void richtbList_TextChanged(object sender, EventArgs e)
