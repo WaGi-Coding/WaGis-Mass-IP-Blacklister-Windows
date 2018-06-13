@@ -39,6 +39,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -50,7 +51,6 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -144,6 +144,7 @@
             this.button2.TabIndex = 6;
             this.button2.Text = "COPY";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button1_Click);
             // 
             // linkLabel2
             // 
@@ -157,6 +158,7 @@
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Text = "wagi.coding@gmail.com";
             this.linkLabel2.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // label5
             // 
@@ -167,6 +169,16 @@
             this.label5.Size = new System.Drawing.Size(216, 20);
             this.label5.TabIndex = 0;
             this.label5.Text = "Where I can get Support?";
+            // 
+            // label6
+            // 
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(4, 45);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(99, 24);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Contact me via";
+            this.label6.UseMnemonic = false;
             // 
             // panel4
             // 
@@ -287,16 +299,6 @@
             this.label12.TabIndex = 1;
             this.label12.Text = resources.GetString("label12.Text");
             this.label12.UseMnemonic = false;
-            // 
-            // label6
-            // 
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(4, 45);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(99, 24);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Contact me via";
-            this.label6.UseMnemonic = false;
             // 
             // InfoForm
             // 
