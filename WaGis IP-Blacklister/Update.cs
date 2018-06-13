@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -31,35 +33,36 @@ namespace WaGis_IP_Blacklister
         private void btnDownload_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(dlLink);
-        }        
+        }
+
+        protected String WaGiRequest(string url)
+        {
+            url += (String.IsNullOrEmpty(new Uri(url).Query) ? "?" : "&") + "access_token=" + "7485b9319e4251a7e5e74fb122c21d56e4b8d215";
+            HttpWebRequest webRequest = System.Net.WebRequest.Create(url) as HttpWebRequest;
+            webRequest.Method = "GET";
+            webRequest.UserAgent = "WaGis-Mass-IP-Blacklister-Windows";
+            webRequest.ServicePoint.Expect100Continue = false;
+            try
+            {
+                using (StreamReader responseReader = new StreamReader(webRequest.GetResponse().GetResponseStream()))
+                    return responseReader.ReadToEnd();
+            }
+            catch
+            {
+                return String.Empty;
+            }
+        }
 
         private void Update_Load(object sender, EventArgs e)
         {            
             try
             {
-                WebRequest req = WebRequest.Create(@"https://pastebin.com/raw/PeTLeE0y");
-                using (WebResponse res = req.GetResponse())
-                {
-                    res.Dispose();
-                }
+                newV = WaGiRequest("https://api.github.com/repos/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases/latest");
 
-                req = WebRequest.Create(@"https://pastebin.com/raw/h8x2MN1H");
-                using (WebResponse res = req.GetResponse())
-                {
-                    res.Dispose();
-                }
+                JObject jObject = JObject.Parse(newV);
+                newV = Convert.ToString(jObject.SelectToken("tag_name"));
 
-                using (WebClient client = new WebClient())
-                {
-                    newV = client.DownloadString(@"https://pastebin.com/raw/PeTLeE0y");
-                    client.Dispose();
-                }
-
-                using (WebClient client = new WebClient())
-                {
-                    dlLink = client.DownloadString(@"https://pastebin.com/raw/h8x2MN1H");
-                    client.Dispose();
-                }
+                dlLink = "https://github.com/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases";
             }
             catch (Exception)
             {

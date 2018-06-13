@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
@@ -14,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NetFwTypeLib;
+using Newtonsoft.Json.Linq;
 
 namespace WaGis_IP_Blacklister
 {
@@ -40,6 +42,24 @@ namespace WaGis_IP_Blacklister
             lblInfo.Text = string.Empty;
         }
 
+        protected String WaGiRequest(string url)
+        {
+            url += (String.IsNullOrEmpty(new Uri(url).Query) ? "?" : "&") + "access_token=" + "7485b9319e4251a7e5e74fb122c21d56e4b8d215";
+            HttpWebRequest webRequest = System.Net.WebRequest.Create(url) as HttpWebRequest;
+            webRequest.Method = "GET";
+            webRequest.UserAgent = "WaGis-Mass-IP-Blacklister-Windows";
+            webRequest.ServicePoint.Expect100Continue = false;
+            try
+            {
+                using (StreamReader responseReader = new StreamReader(webRequest.GetResponse().GetResponseStream()))
+                    return responseReader.ReadToEnd();
+            }
+            catch
+            {
+                return String.Empty;
+            }
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             
@@ -61,20 +81,14 @@ namespace WaGis_IP_Blacklister
             // Maybe Check for Updates - NOT DONE
             try
             {
-                WebRequest req = WebRequest.Create(@"https://pastebin.com/raw/PeTLeE0y");
-                using (WebResponse res = req.GetResponse())
-                {
-                    res.Dispose();
-                }
+                newV = WaGiRequest("https://api.github.com/repos/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases/latest");
 
-                using (WebClient client = new WebClient())
-                {
-                    newV = client.DownloadString(@"https://pastebin.com/raw/PeTLeE0y");
-                    client.Dispose();
-                }
+                JObject jObject = JObject.Parse(newV);
+                newV = Convert.ToString(jObject.SelectToken("tag_name"));
             }
             catch (Exception)
             {
+                throw;
             }
 
             var versionNow = new Version(Application.ProductVersion);
