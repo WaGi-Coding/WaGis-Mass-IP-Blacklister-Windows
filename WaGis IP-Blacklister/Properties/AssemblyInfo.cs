@@ -2,7 +2,10 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0f6fa98e564b2c41ed2bd6318f0add4fae2f748f
 =======
 >>>>>>> 0f6fa98e564b2c41ed2bd6318f0add4fae2f748f
 [assembly: AssemblyTitle("WaGis IP-Blacklister")]
@@ -14,7 +17,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0f6fa98e564b2c41ed2bd6318f0add4fae2f748f
 =======
 >>>>>>> 0f6fa98e564b2c41ed2bd6318f0add4fae2f748f
 [assembly: ComVisible(false)]
