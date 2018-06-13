@@ -1,13 +1,6 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> 0f6fa98e564b2c41ed2bd6318f0add4fae2f748f
-=======
->>>>>>> 0f6fa98e564b2c41ed2bd6318f0add4fae2f748f
 [assembly: AssemblyTitle("WaGis IP-Blacklister")]
 [assembly: AssemblyDescription("IP-List Firewall Blocker by WaGi-Coding")]
 [assembly: AssemblyConfiguration("")]
@@ -16,13 +9,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright © WaGi-Coding 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> 0f6fa98e564b2c41ed2bd6318f0add4fae2f748f
-=======
->>>>>>> 0f6fa98e564b2c41ed2bd6318f0add4fae2f748f
 [assembly: ComVisible(false)]
 [assembly: Guid("8862ade0-52c1-4e6f-8318-cbb607768b54")]
 
@@ -35,4 +21,4 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 //[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.3.0")]
+[assembly: AssemblyFileVersion("1.2.9")]
