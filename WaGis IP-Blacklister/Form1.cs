@@ -43,8 +43,7 @@ namespace WaGis_IP_Blacklister
         }
 
         protected String WaGiRequest(string url)
-        {
-            url += (String.IsNullOrEmpty(new Uri(url).Query) ? "?" : "&") + "access_token=" + "YOUR GITHUB API KEY";
+        {            
             HttpWebRequest webRequest = System.Net.WebRequest.Create(url) as HttpWebRequest;
             webRequest.Method = "GET";
             webRequest.UserAgent = "WaGis-Mass-IP-Blacklister-Windows";
