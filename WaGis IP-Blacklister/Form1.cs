@@ -33,8 +33,8 @@ namespace WaGis_IP_Blacklister
 
         //[DllImport("user32.dll", EntryPoint = "ShowCaret")] //
         //public static extern long ShowCaret(IntPtr hwnd);  //  
-        [DllImport("user32.dll", EntryPoint = "HideCaret")] // To hide the Cursor in Logbox
-        public static extern long HideCaret(IntPtr hwnd);  //
+        //[DllImport("user32.dll", EntryPoint = "HideCaret")] // To hide the Cursor in Logbox
+        //public static extern long HideCaret(IntPtr hwnd);  //
         
         public MainForm()
         {
@@ -103,7 +103,7 @@ namespace WaGis_IP_Blacklister
 
                     /////////////////////////
 
-                    HideCaret(richTextBox2.Handle);
+                    //HideCaret(richTextBox2.Handle);
                     richtbList.SelectionStart = richtbList.Text.Length;
                     firewallPolicy = (INetFwPolicy2)Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2"));
                 }
@@ -201,13 +201,13 @@ namespace WaGis_IP_Blacklister
                     while (allips.Count >= 1)
                     {
                         List<string> list5k = new List<string>();
-                        list5k.AddRange(allips.Take(5000));
+                        list5k.AddRange(allips.Take(10001));
                         fiveklists.Add(list5k);
-                        if (allips.Count >= 5000)
+                        if (allips.Count >= 10001)
                         {
-                            allips.RemoveRange(0, 5000);
+                            allips.RemoveRange(0, 10001);
                         }
-                        else if (allips.Count > 0 && allips.Count < 5000)
+                        else if (allips.Count > 0 && allips.Count < 10001)
                         {
                             allips.RemoveRange(0, allips.Count);
                         }
@@ -319,7 +319,7 @@ namespace WaGis_IP_Blacklister
             Rule.Direction = direction; //Inbound
             Rule.Action = NET_FW_ACTION_.NET_FW_ACTION_BLOCK;
             
-            //Rule.Protocol = (int)NET_FW_IP_PROTOCOL_.NET_FW_IP_PROTOCOL_ANY; // ANY/TCP/UDP
+            Rule.Protocol = protNumber; // ANY/TCP/UDP
 
             try
             {
@@ -339,7 +339,16 @@ namespace WaGis_IP_Blacklister
 
             // Now add the rule
             //INetFwPolicy2 firewallPolicy = (INetFwPolicy2)Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2"));
-            firewallPolicy.Rules.Add(Rule);
+            try
+            {
+                firewallPolicy.Rules.Add(Rule);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                throw;
+            }
+            
         }
 
 
@@ -551,7 +560,7 @@ namespace WaGis_IP_Blacklister
 
         private void richTextBox2_Click(object sender, EventArgs e)
         {
-            HideCaret(richTextBox2.Handle);
+            //HideCaret(richTextBox2.Handle);
         }
 
         private void btnGetList_Click(object sender, EventArgs e)
