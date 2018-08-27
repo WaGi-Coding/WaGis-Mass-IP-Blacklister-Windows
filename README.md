@@ -42,4 +42,4 @@ __Tested on:__
 * Windows Server 2016
 
 __Problems on:__
-* Windows 7 (when going over 1000 IP's)
+* Windows 7 (when going over 1000 IP's, so it's mostly useless on Win7 right now)
