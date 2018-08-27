@@ -37,7 +37,7 @@ namespace WaGis_IP_Blacklister
 
         protected String WaGiRequest(string url)
         {
-            url += (String.IsNullOrEmpty(new Uri(url).Query) ? "?" : "&") + "access_token=" + "7485b9319e4251a7e5e74fb122c21d56e4b8d215";
+            url += (String.IsNullOrEmpty(new Uri(url).Query) ? "?" : "&");
             HttpWebRequest webRequest = System.Net.WebRequest.Create(url) as HttpWebRequest;
             webRequest.Method = "GET";
             webRequest.UserAgent = "WaGis-Mass-IP-Blacklister-Windows";
@@ -66,8 +66,7 @@ namespace WaGis_IP_Blacklister
             }
             catch (Exception)
             {
-                MessageBox.Show("Something went wrong!\nSeems the Link to the Download is down.\nCheckout again later", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
+                MessageBox.Show("Seems there is an Update, but a Problem with resolving the newest Version. Checkout yourself for the new Version on Github or SourceForge", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             newVersion = new Version(newV);            
             curVersion = new Version(Application.ProductVersion);
