@@ -201,13 +201,13 @@ namespace WaGis_IP_Blacklister
                     while (allips.Count >= 1)
                     {
                         List<string> list5k = new List<string>();
-                        list5k.AddRange(allips.Take(10001));
+                        list5k.AddRange(allips.Take(5000));
                         fiveklists.Add(list5k);
-                        if (allips.Count >= 10001)
+                        if (allips.Count >= 5000)
                         {
-                            allips.RemoveRange(0, 10001);
+                            allips.RemoveRange(0, 5000);
                         }
-                        else if (allips.Count > 0 && allips.Count < 10001)
+                        else if (allips.Count > 0 && allips.Count < 5000)
                         {
                             allips.RemoveRange(0, allips.Count);
                         }
