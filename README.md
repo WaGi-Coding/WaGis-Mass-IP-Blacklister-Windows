@@ -40,6 +40,4 @@ __Tested on:__
 * Windows 10
 * Windows Server 2012 R2
 * Windows Server 2016
-
-__Problems on:__
-* Windows 7 (when going over 1000 IP's, so it's mostly useless on Win7 right now)
+* Windows 7 (1k Block Size instead of 10k - Programm now does this automatically)
