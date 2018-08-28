@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Win32;
 using NetFwTypeLib;
 using Newtonsoft.Json.Linq;
 
@@ -28,6 +29,8 @@ namespace WaGis_IP_Blacklister
         int listindex = 0;
         string newV;
 
+        int BlockSize = 1000;
+
         int protocolNumber = Properties.Settings.Default.Protocol_Number;
         string protDesc = Properties.Settings.Default.Protocol;
 
@@ -39,7 +42,16 @@ namespace WaGis_IP_Blacklister
         public MainForm()
         {
             InitializeComponent();            
-            lblInfo.Text = string.Empty;
+            lblInfo.Text = string.Empty;            
+        }
+
+        static bool Win10orWinServer()
+        {
+            var reg = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
+
+            string productName = (string)reg.GetValue("ProductName");
+
+            return (productName.Contains("Windows 10") || productName.Contains("Windows Server"));
         }
 
         protected String WaGiRequest(string url)
@@ -78,6 +90,17 @@ namespace WaGis_IP_Blacklister
                 ///////LOAD HERE////
                 btnLoadSettings.PerformClick();
                 ///////////////////            
+
+                ///////////////////// WORKAROUND FOR DIFFERENT WINDOWS VERSIONS
+                if (Win10orWinServer()) // [DIRTY FIX] If we use Windows 10 or Server, you can add 10k Rules instead of 1k like in Windows 7. I am not sure about versions between so i leave them at 1000 which is quite low. I need to find a better method to detect the BlockSize-Limit (Maximum IP's allowed per FireWall-Rule on different Windows Versions)
+                {
+                    BlockSize = 10000;                   
+                }
+                else
+                {
+                    BlockSize = 1000;
+                    MessageBox.Show("Seems you're not using Windows 10 or Windows Server.\nMaximum IP's per Rule will be reduced from 10k to 1k.\nNo worries, you can still use this Tool.");
+                }
 
                 // Maybe Check for Updates - NOT DONE
                 try
@@ -201,13 +224,13 @@ namespace WaGis_IP_Blacklister
                     while (allips.Count >= 1)
                     {
                         List<string> list5k = new List<string>();
-                        list5k.AddRange(allips.Take(5000));
+                        list5k.AddRange(allips.Take(BlockSize));
                         fiveklists.Add(list5k);
-                        if (allips.Count >= 5000)
+                        if (allips.Count >= BlockSize)
                         {
-                            allips.RemoveRange(0, 5000);
+                            allips.RemoveRange(0, BlockSize);
                         }
-                        else if (allips.Count > 0 && allips.Count < 5000)
+                        else if (allips.Count > 0 && allips.Count < BlockSize)
                         {
                             allips.RemoveRange(0, allips.Count);
                         }
@@ -344,8 +367,7 @@ namespace WaGis_IP_Blacklister
                 firewallPolicy.Rules.Add(Rule);
             }
             catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
+            {                
                 throw;
             }
             
