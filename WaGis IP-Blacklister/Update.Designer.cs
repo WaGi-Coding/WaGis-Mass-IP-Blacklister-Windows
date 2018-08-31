@@ -34,6 +34,8 @@
             this.lblNew = new System.Windows.Forms.Label();
             this.btnDownload = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -72,7 +74,7 @@
             this.btnDownload.Name = "btnDownload";
             this.btnDownload.Size = new System.Drawing.Size(104, 23);
             this.btnDownload.TabIndex = 3;
-            this.btnDownload.Text = "Download Update";
+            this.btnDownload.Text = "GO TO UPDATE";
             this.btnDownload.UseVisualStyleBackColor = true;
             this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
             // 
@@ -86,11 +88,31 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(13, 129);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
+            this.richTextBox1.Size = new System.Drawing.Size(318, 120);
+            this.richTextBox1.TabIndex = 5;
+            this.richTextBox1.Text = "";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 110);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(61, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Changelog:";
+            // 
             // Update
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(343, 103);
+            this.ClientSize = new System.Drawing.Size(343, 261);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnDownload);
             this.Controls.Add(this.lblNew);
@@ -99,9 +121,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(359, 142);
+            this.MaximumSize = new System.Drawing.Size(359, 300);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(359, 142);
+            this.MinimumSize = new System.Drawing.Size(359, 300);
             this.Name = "Update";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Update - WaGi\'s IP-Blacklister";
@@ -118,5 +140,7 @@
         private System.Windows.Forms.Label lblNew;
         private System.Windows.Forms.Button btnDownload;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Label label2;
     }
 }

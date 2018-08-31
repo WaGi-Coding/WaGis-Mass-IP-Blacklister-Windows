@@ -15,7 +15,9 @@ namespace WaGis_IP_Blacklister
 {
     public partial class Update : Form
     {
+        string jsonData;
         string newV;
+        string body;
         string dlLink;
         Version newVersion;
         Version curVersion;
@@ -32,7 +34,17 @@ namespace WaGis_IP_Blacklister
 
         private void btnDownload_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(dlLink);
+            DialogResult openBrowserResult = MessageBox.Show("Click OK to open the Link in the Browser & closing the Programm!", "Open Browser?", MessageBoxButtons.OKCancel);
+
+            if (openBrowserResult == DialogResult.OK)
+            {
+                System.Diagnostics.Process.Start(dlLink);
+                Application.Exit();
+            }
+            else
+            {
+                return;
+            }
         }
 
         protected String WaGiRequest(string url)
@@ -57,12 +69,15 @@ namespace WaGis_IP_Blacklister
         {            
             try
             {
-                newV = WaGiRequest("https://api.github.com/repos/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases/latest");
+                jsonData = WaGiRequest("https://api.github.com/repos/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases/latest");
 
-                JObject jObject = JObject.Parse(newV);
+                JObject jObject = JObject.Parse(jsonData);
                 newV = Convert.ToString(jObject.SelectToken("tag_name"));
+                body = Convert.ToString(jObject.SelectToken("body"));
 
-                dlLink = "https://github.com/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases";
+
+
+                dlLink = "https://sourceforge.net/projects/wagi-ip-blacklister/";
             }
             catch (Exception)
             {
@@ -85,6 +100,9 @@ namespace WaGis_IP_Blacklister
                 btnDownload.Enabled = true;
             }
 
+            string[] bodyArray = body.Split(new string[] { "---" }, StringSplitOptions.None);
+
+            richTextBox1.Text = bodyArray[1].Replace('*', '●');
 
         }
     }

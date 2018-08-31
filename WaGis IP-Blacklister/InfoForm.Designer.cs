@@ -265,8 +265,8 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(263, 60);
             this.label10.TabIndex = 1;
-            this.label10.Text = "It splits the IPs from the left Textbox into 5k lists and makes 1 Firewall Rule p" +
-    "er 5k IPs.";
+            this.label10.Text = "It splits the IPs from the left Textbox into 10k (1k on Win7) lists and makes 1 F" +
+    "irewall Rule per 10k IPs.";
             this.label10.UseMnemonic = false;
             // 
             // panel6
