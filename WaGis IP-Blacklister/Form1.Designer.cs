@@ -32,12 +32,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.richtbList = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ToolstripMenuItemCOPY1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolstripMenuItemPASTE = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolstripMenuItemCUT = new System.Windows.Forms.ToolStripMenuItem();
             this.btnADD = new System.Windows.Forms.Button();
             this.btnDeleteAll = new System.Windows.Forms.Button();
             this.pnlOptions = new System.Windows.Forms.Panel();
             this.btnLoadSettings = new System.Windows.Forms.Button();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.btnSaveSettings = new System.Windows.Forms.Button();
             this.pnlDirection = new System.Windows.Forms.Panel();
             this.cbOutbound = new System.Windows.Forms.CheckBox();
@@ -45,8 +46,6 @@
             this.lblDirection = new System.Windows.Forms.Label();
             this.pnlAddDelDelallLog = new System.Windows.Forms.Panel();
             this.btnDEL = new System.Windows.Forms.Button();
-            this.cbLogging = new System.Windows.Forms.CheckBox();
-            this.lblLogging = new System.Windows.Forms.Label();
             this.lblInfo = new System.Windows.Forms.Label();
             this.pnlExcludeIPs = new System.Windows.Forms.Panel();
             this.listBoxExcludeIPs = new System.Windows.Forms.ListBox();
@@ -70,24 +69,21 @@
             this.rbUDP = new System.Windows.Forms.RadioButton();
             this.rbTCP = new System.Windows.Forms.RadioButton();
             this.rbALL = new System.Windows.Forms.RadioButton();
+            this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ToolstripMenuItemCOPY2 = new System.Windows.Forms.ToolStripMenuItem();
             this.lblLines = new System.Windows.Forms.Label();
             this.IntervalTimer = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolstripMenuItemCOPY2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolstripMenuItemCOPY1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolstripMenuItemPASTE = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolstripMenuItemCUT = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolstripMenuItemADD = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStriptbListURL = new System.Windows.Forms.ToolStripTextBox();
             this.ToolstripMenuItemOK = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolstripMenuItemREMOVE = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timerUpdateBlink = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.pnlOptions.SuspendLayout();
-            this.contextMenuStrip3.SuspendLayout();
             this.pnlDirection.SuspendLayout();
             this.pnlAddDelDelallLog.SuspendLayout();
             this.pnlExcludeIPs.SuspendLayout();
@@ -96,6 +92,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericHours)).BeginInit();
             this.pnlProtocol.SuspendLayout();
+            this.contextMenuStrip3.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -108,7 +105,7 @@
             this.richtbList.Location = new System.Drawing.Point(12, 27);
             this.richtbList.Name = "richtbList";
             this.richtbList.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.richtbList.Size = new System.Drawing.Size(128, 527);
+            this.richtbList.Size = new System.Drawing.Size(235, 527);
             this.richtbList.TabIndex = 0;
             this.richtbList.Text = "";
             this.richtbList.TextChanged += new System.EventHandler(this.richtbList_TextChanged);
@@ -122,6 +119,30 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(103, 70);
             // 
+            // ToolstripMenuItemCOPY1
+            // 
+            this.ToolstripMenuItemCOPY1.Image = global::WaGis_IP_Blacklister.Properties.Resources.copyPic;
+            this.ToolstripMenuItemCOPY1.Name = "ToolstripMenuItemCOPY1";
+            this.ToolstripMenuItemCOPY1.Size = new System.Drawing.Size(102, 22);
+            this.ToolstripMenuItemCOPY1.Text = "Copy";
+            this.ToolstripMenuItemCOPY1.Click += new System.EventHandler(this.CopyAction);
+            // 
+            // ToolstripMenuItemPASTE
+            // 
+            this.ToolstripMenuItemPASTE.Image = global::WaGis_IP_Blacklister.Properties.Resources.pastePic;
+            this.ToolstripMenuItemPASTE.Name = "ToolstripMenuItemPASTE";
+            this.ToolstripMenuItemPASTE.Size = new System.Drawing.Size(102, 22);
+            this.ToolstripMenuItemPASTE.Text = "Paste";
+            this.ToolstripMenuItemPASTE.Click += new System.EventHandler(this.PasteAction);
+            // 
+            // ToolstripMenuItemCUT
+            // 
+            this.ToolstripMenuItemCUT.Image = global::WaGis_IP_Blacklister.Properties.Resources.cutPic;
+            this.ToolstripMenuItemCUT.Name = "ToolstripMenuItemCUT";
+            this.ToolstripMenuItemCUT.Size = new System.Drawing.Size(102, 22);
+            this.ToolstripMenuItemCUT.Text = "Cut";
+            this.ToolstripMenuItemCUT.Click += new System.EventHandler(this.CutAction);
+            // 
             // btnADD
             // 
             this.btnADD.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -130,9 +151,9 @@
             this.btnADD.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnADD.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnADD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnADD.Location = new System.Drawing.Point(3, 6);
+            this.btnADD.Location = new System.Drawing.Point(1, 7);
             this.btnADD.Name = "btnADD";
-            this.btnADD.Size = new System.Drawing.Size(52, 25);
+            this.btnADD.Size = new System.Drawing.Size(90, 25);
             this.btnADD.TabIndex = 3;
             this.btnADD.Text = "ADD";
             this.btnADD.UseVisualStyleBackColor = false;
@@ -147,9 +168,9 @@
             this.btnDeleteAll.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnDeleteAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteAll.ForeColor = System.Drawing.Color.Black;
-            this.btnDeleteAll.Location = new System.Drawing.Point(3, 35);
+            this.btnDeleteAll.Location = new System.Drawing.Point(1, 35);
             this.btnDeleteAll.Name = "btnDeleteAll";
-            this.btnDeleteAll.Size = new System.Drawing.Size(110, 25);
+            this.btnDeleteAll.Size = new System.Drawing.Size(187, 25);
             this.btnDeleteAll.TabIndex = 5;
             this.btnDeleteAll.Text = "DELETE ALL";
             this.btnDeleteAll.UseVisualStyleBackColor = false;
@@ -159,10 +180,7 @@
             // 
             // pnlOptions
             // 
-            this.pnlOptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlOptions.Controls.Add(this.btnLoadSettings);
-            this.pnlOptions.Controls.Add(this.richTextBox2);
             this.pnlOptions.Controls.Add(this.btnSaveSettings);
             this.pnlOptions.Controls.Add(this.pnlDirection);
             this.pnlOptions.Controls.Add(this.pnlAddDelDelallLog);
@@ -171,9 +189,9 @@
             this.pnlOptions.Controls.Add(this.pnlListURL);
             this.pnlOptions.Controls.Add(this.pnlAutoMode);
             this.pnlOptions.Controls.Add(this.pnlProtocol);
-            this.pnlOptions.Location = new System.Drawing.Point(147, 12);
+            this.pnlOptions.Location = new System.Drawing.Point(253, 12);
             this.pnlOptions.Name = "pnlOptions";
-            this.pnlOptions.Size = new System.Drawing.Size(195, 551);
+            this.pnlOptions.Size = new System.Drawing.Size(202, 551);
             this.pnlOptions.TabIndex = 9999;
             // 
             // btnLoadSettings
@@ -185,27 +203,6 @@
             this.btnLoadSettings.Text = "LOAD SETTINGS";
             this.btnLoadSettings.UseVisualStyleBackColor = true;
             this.btnLoadSettings.Click += new System.EventHandler(this.btnLoadSettings_Click);
-            // 
-            // richTextBox2
-            // 
-            this.richTextBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox2.ContextMenuStrip = this.contextMenuStrip3;
-            this.richTextBox2.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.richTextBox2.Location = new System.Drawing.Point(198, 3);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.ReadOnly = true;
-            this.richTextBox2.Size = new System.Drawing.Size(0, 425);
-            this.richTextBox2.TabIndex = 9999;
-            this.richTextBox2.Text = "";
-            this.richTextBox2.Click += new System.EventHandler(this.richTextBox2_Click);
-            // 
-            // contextMenuStrip3
-            // 
-            this.contextMenuStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolstripMenuItemCOPY2});
-            this.contextMenuStrip3.Name = "contextMenuStrip1";
-            this.contextMenuStrip3.Size = new System.Drawing.Size(103, 26);
             // 
             // btnSaveSettings
             // 
@@ -270,13 +267,11 @@
             // pnlAddDelDelallLog
             // 
             this.pnlAddDelDelallLog.Controls.Add(this.btnDEL);
-            this.pnlAddDelDelallLog.Controls.Add(this.cbLogging);
-            this.pnlAddDelDelallLog.Controls.Add(this.lblLogging);
             this.pnlAddDelDelallLog.Controls.Add(this.btnADD);
             this.pnlAddDelDelallLog.Controls.Add(this.btnDeleteAll);
             this.pnlAddDelDelallLog.Location = new System.Drawing.Point(3, 8);
             this.pnlAddDelDelallLog.Name = "pnlAddDelDelallLog";
-            this.pnlAddDelDelallLog.Size = new System.Drawing.Size(188, 63);
+            this.pnlAddDelDelallLog.Size = new System.Drawing.Size(196, 63);
             this.pnlAddDelDelallLog.TabIndex = 2;
             // 
             // btnDEL
@@ -287,43 +282,13 @@
             this.btnDEL.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDEL.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnDEL.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDEL.Location = new System.Drawing.Point(61, 6);
+            this.btnDEL.Location = new System.Drawing.Point(99, 7);
             this.btnDEL.Name = "btnDEL";
-            this.btnDEL.Size = new System.Drawing.Size(52, 25);
+            this.btnDEL.Size = new System.Drawing.Size(90, 25);
             this.btnDEL.TabIndex = 4;
             this.btnDEL.Text = "DEL";
             this.btnDEL.UseVisualStyleBackColor = false;
             this.btnDEL.Click += new System.EventHandler(this.btnDEL_Click);
-            // 
-            // cbLogging
-            // 
-            this.cbLogging.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbLogging.AutoSize = true;
-            this.cbLogging.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cbLogging.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbLogging.Location = new System.Drawing.Point(173, 10);
-            this.cbLogging.Name = "cbLogging";
-            this.cbLogging.Size = new System.Drawing.Size(15, 14);
-            this.cbLogging.TabIndex = 6;
-            this.cbLogging.UseVisualStyleBackColor = true;
-            this.cbLogging.Visible = false;
-            this.cbLogging.CheckedChanged += new System.EventHandler(this.cbLogging_CheckedChanged);
-            // 
-            // lblLogging
-            // 
-            this.lblLogging.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblLogging.AutoSize = true;
-            this.lblLogging.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblLogging.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLogging.Location = new System.Drawing.Point(129, 9);
-            this.lblLogging.Name = "lblLogging";
-            this.lblLogging.Size = new System.Drawing.Size(45, 13);
-            this.lblLogging.TabIndex = 9999;
-            this.lblLogging.Text = "Logging";
-            this.lblLogging.Visible = false;
-            this.lblLogging.Click += new System.EventHandler(this.lblLogging_Click);
             // 
             // lblInfo
             // 
@@ -372,8 +337,6 @@
             // 
             // pnlListURL
             // 
-            this.pnlListURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlListURL.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pnlListURL.Controls.Add(this.tbListURL);
             this.pnlListURL.Controls.Add(this.btnGetList);
@@ -628,6 +591,20 @@
             this.rbALL.UseVisualStyleBackColor = true;
             this.rbALL.CheckedChanged += new System.EventHandler(this.ProtocolSwitch);
             // 
+            // contextMenuStrip3
+            // 
+            this.contextMenuStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolstripMenuItemCOPY2});
+            this.contextMenuStrip3.Name = "contextMenuStrip1";
+            this.contextMenuStrip3.Size = new System.Drawing.Size(103, 26);
+            // 
+            // ToolstripMenuItemCOPY2
+            // 
+            this.ToolstripMenuItemCOPY2.Image = global::WaGis_IP_Blacklister.Properties.Resources.copyPic;
+            this.ToolstripMenuItemCOPY2.Name = "ToolstripMenuItemCOPY2";
+            this.ToolstripMenuItemCOPY2.Size = new System.Drawing.Size(102, 22);
+            this.ToolstripMenuItemCOPY2.Text = "Copy";
+            // 
             // lblLines
             // 
             this.lblLines.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -649,65 +626,6 @@
             this.ToolstripMenuItemREMOVE});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.Size = new System.Drawing.Size(121, 48);
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.infoToolStripMenuItem,
-            this.updateToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(354, 24);
-            this.menuStrip1.TabIndex = 10000;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // infoToolStripMenuItem
-            // 
-            this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
-            this.infoToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
-            this.infoToolStripMenuItem.Text = "Info";
-            this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
-            // 
-            // updateToolStripMenuItem
-            // 
-            this.updateToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
-            this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(109, 20);
-            this.updateToolStripMenuItem.Text = "Update available!";
-            this.updateToolStripMenuItem.Visible = false;
-            this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
-            // 
-            // ToolstripMenuItemCOPY2
-            // 
-            this.ToolstripMenuItemCOPY2.Image = global::WaGis_IP_Blacklister.Properties.Resources.copyPic;
-            this.ToolstripMenuItemCOPY2.Name = "ToolstripMenuItemCOPY2";
-            this.ToolstripMenuItemCOPY2.Size = new System.Drawing.Size(102, 22);
-            this.ToolstripMenuItemCOPY2.Text = "Copy";
-            this.ToolstripMenuItemCOPY2.Click += new System.EventHandler(this.ToolstripMenuItemCOPY2_Click);
-            // 
-            // ToolstripMenuItemCOPY1
-            // 
-            this.ToolstripMenuItemCOPY1.Image = global::WaGis_IP_Blacklister.Properties.Resources.copyPic;
-            this.ToolstripMenuItemCOPY1.Name = "ToolstripMenuItemCOPY1";
-            this.ToolstripMenuItemCOPY1.Size = new System.Drawing.Size(102, 22);
-            this.ToolstripMenuItemCOPY1.Text = "Copy";
-            this.ToolstripMenuItemCOPY1.Click += new System.EventHandler(this.CopyAction);
-            // 
-            // ToolstripMenuItemPASTE
-            // 
-            this.ToolstripMenuItemPASTE.Image = global::WaGis_IP_Blacklister.Properties.Resources.pastePic;
-            this.ToolstripMenuItemPASTE.Name = "ToolstripMenuItemPASTE";
-            this.ToolstripMenuItemPASTE.Size = new System.Drawing.Size(102, 22);
-            this.ToolstripMenuItemPASTE.Text = "Paste";
-            this.ToolstripMenuItemPASTE.Click += new System.EventHandler(this.PasteAction);
-            // 
-            // ToolstripMenuItemCUT
-            // 
-            this.ToolstripMenuItemCUT.Image = global::WaGis_IP_Blacklister.Properties.Resources.cutPic;
-            this.ToolstripMenuItemCUT.Name = "ToolstripMenuItemCUT";
-            this.ToolstripMenuItemCUT.Size = new System.Drawing.Size(102, 22);
-            this.ToolstripMenuItemCUT.Text = "Cut";
-            this.ToolstripMenuItemCUT.Click += new System.EventHandler(this.CutAction);
             // 
             // ToolstripMenuItemADD
             // 
@@ -744,6 +662,33 @@
             this.ToolstripMenuItemREMOVE.Text = "REMOVE";
             this.ToolstripMenuItemREMOVE.Click += new System.EventHandler(this.ToolstripMenuItemREMOVE_Click);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.infoToolStripMenuItem,
+            this.updateToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(458, 24);
+            this.menuStrip1.TabIndex = 10000;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // infoToolStripMenuItem
+            // 
+            this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
+            this.infoToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.infoToolStripMenuItem.Text = "Info";
+            this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
+            // 
+            // updateToolStripMenuItem
+            // 
+            this.updateToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
+            this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(109, 20);
+            this.updateToolStripMenuItem.Text = "Update available!";
+            this.updateToolStripMenuItem.Visible = false;
+            this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
+            // 
             // timerUpdateBlink
             // 
             this.timerUpdateBlink.Interval = 1000;
@@ -753,7 +698,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(354, 575);
+            this.ClientSize = new System.Drawing.Size(458, 575);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.lblLines);
             this.Controls.Add(this.pnlOptions);
@@ -770,11 +715,9 @@
             this.contextMenuStrip1.ResumeLayout(false);
             this.pnlOptions.ResumeLayout(false);
             this.pnlOptions.PerformLayout();
-            this.contextMenuStrip3.ResumeLayout(false);
             this.pnlDirection.ResumeLayout(false);
             this.pnlDirection.PerformLayout();
             this.pnlAddDelDelallLog.ResumeLayout(false);
-            this.pnlAddDelDelallLog.PerformLayout();
             this.pnlExcludeIPs.ResumeLayout(false);
             this.pnlExcludeIPs.PerformLayout();
             this.pnlListURL.ResumeLayout(false);
@@ -785,6 +728,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericHours)).EndInit();
             this.pnlProtocol.ResumeLayout(false);
             this.pnlProtocol.PerformLayout();
+            this.contextMenuStrip3.ResumeLayout(false);
             this.contextMenuStrip2.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -835,9 +779,6 @@
         private System.Windows.Forms.Label lblMinutes;
         private System.Windows.Forms.Label lblHours;
         private System.Windows.Forms.Label lblDots;
-        private System.Windows.Forms.CheckBox cbLogging;
-        private System.Windows.Forms.Label lblLogging;
-        private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip3;
         private System.Windows.Forms.ToolStripMenuItem ToolstripMenuItemCOPY2;
         private System.Windows.Forms.CheckBox cbAutoOnDoOnce;

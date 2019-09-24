@@ -558,27 +558,6 @@ namespace WaGis_IP_Blacklister
             }
         }
 
-        private void cbLogging_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbLogging.Checked)
-            {
-                richTextBox2.Text = string.Empty;
-                this.Size = new Size(800, 590);
-            }
-            else
-            {
-                richTextBox2.Text = string.Empty;
-                this.Size = new Size(370, 590);                
-            }
-        }
-
-        private void ToolstripMenuItemCOPY2_Click(object sender, EventArgs e)
-        {
-            if (!String.IsNullOrWhiteSpace(richTextBox2.SelectedText))
-            {
-                Clipboard.SetText(richTextBox2.SelectedText);
-            }
-        }
 
         private void richTextBox2_Click(object sender, EventArgs e)
         {
@@ -654,11 +633,6 @@ namespace WaGis_IP_Blacklister
         {
             btnDeleteAll.BackColor = Color.FromArgb(255, 180, 0, 0);
         }
-
-        private void lblLogging_Click(object sender, EventArgs e)
-        {
-            cbLogging.Checked = !cbLogging.Checked;
-        }
         
         private string GetDirection()
         {
@@ -678,7 +652,7 @@ namespace WaGis_IP_Blacklister
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Logging = cbLogging.Checked;
+            Properties.Settings.Default.Logging = false; // removed logging functionality totally for now
             Properties.Settings.Default.Protocol = protDesc;
             Properties.Settings.Default.Protocol_Number = protocolNumber;
             Properties.Settings.Default.Direction = GetDirection();
@@ -704,14 +678,14 @@ namespace WaGis_IP_Blacklister
         private void btnLoadSettings_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Reload();
-            if (Properties.Settings.Default.Logging)
-            {
-                cbLogging.Checked = true;
-            }
-            else
-            {
-                cbLogging.Checked = false;
-            }
+            //if (Properties.Settings.Default.Logging)
+            //{
+            //    cbLogging.Checked = true;
+            //}
+            //else
+            //{
+            //    cbLogging.Checked = false;
+            //}
 
 
             switch (Properties.Settings.Default.Protocol)
