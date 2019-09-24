@@ -171,7 +171,7 @@ namespace WaGis_IP_Blacklister
                         break;
 
                     case "rbALL":
-                        protocolNumber = 0;
+                        protocolNumber = 256;
                         protDesc = "ALL";
                         break;                    
 
@@ -198,9 +198,9 @@ namespace WaGis_IP_Blacklister
 
 
 
-                //Only grab all IPv4 IPs/ranges and put them in a List
+                //Only grab all IPv4/6 IPs/ranges and put them in a List
 
-                allips.AddRange(Regex.Matches(richtbList.Text, @"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b")
+                allips.AddRange(Regex.Matches(richtbList.Text, @"((?:^|(?<=\s))(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))(?=\s|$)|\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b)")
                     .Cast<Match>()
                     .Select(m => m.Value)
                     .ToList());
@@ -341,7 +341,7 @@ namespace WaGis_IP_Blacklister
             NET_FW_RULE_DIRECTION_ direction = ruleDirection;
             Rule.Direction = direction; //Inbound
             Rule.Action = NET_FW_ACTION_.NET_FW_ACTION_BLOCK;
-            
+
             Rule.Protocol = protNumber; // ANY/TCP/UDP
 
             try
@@ -368,7 +368,7 @@ namespace WaGis_IP_Blacklister
             }
             catch (Exception ex)
             {                
-                throw;
+                throw ex;
             }
             
         }
