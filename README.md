@@ -39,5 +39,6 @@ __.NET Framework 4.6.1__
 __Tested on:__
 * Windows 10
 * Windows Server 2012 R2
+* Windows Server 2008 R2(in compatibility mode for Windows 7 only - need to fix that)
 * Windows Server 2016
 * Windows 7 (1k Block Size instead of 10k - Programm now does this automatically)
