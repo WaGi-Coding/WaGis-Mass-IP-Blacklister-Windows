@@ -171,7 +171,7 @@ namespace WaGis_IP_Blacklister
                         break;
 
                     case "rbALL":
-                        protocolNumber = 0;
+                        protocolNumber = 256;
                         protDesc = "ALL";
                         break;                    
 
@@ -198,9 +198,9 @@ namespace WaGis_IP_Blacklister
 
 
 
-                //Only grab all IPv4 IPs/ranges and put them in a List
+                //Only grab all IPv4/6 IPs/ranges and put them in a List
 
-                allips.AddRange(Regex.Matches(richtbList.Text, @"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b")
+                allips.AddRange(Regex.Matches(richtbList.Text, @"((?:^|(?<=\s))(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))(?=\s|$)|\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b)")
                     .Cast<Match>()
                     .Select(m => m.Value)
                     .ToList());
@@ -341,7 +341,7 @@ namespace WaGis_IP_Blacklister
             NET_FW_RULE_DIRECTION_ direction = ruleDirection;
             Rule.Direction = direction; //Inbound
             Rule.Action = NET_FW_ACTION_.NET_FW_ACTION_BLOCK;
-            
+
             Rule.Protocol = protNumber; // ANY/TCP/UDP
 
             try
@@ -368,7 +368,7 @@ namespace WaGis_IP_Blacklister
             }
             catch (Exception ex)
             {                
-                throw;
+                throw ex;
             }
             
         }
@@ -558,27 +558,6 @@ namespace WaGis_IP_Blacklister
             }
         }
 
-        private void cbLogging_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbLogging.Checked)
-            {
-                richTextBox2.Text = string.Empty;
-                this.Size = new Size(800, 590);
-            }
-            else
-            {
-                richTextBox2.Text = string.Empty;
-                this.Size = new Size(370, 590);                
-            }
-        }
-
-        private void ToolstripMenuItemCOPY2_Click(object sender, EventArgs e)
-        {
-            if (!String.IsNullOrWhiteSpace(richTextBox2.SelectedText))
-            {
-                Clipboard.SetText(richTextBox2.SelectedText);
-            }
-        }
 
         private void richTextBox2_Click(object sender, EventArgs e)
         {
@@ -654,11 +633,6 @@ namespace WaGis_IP_Blacklister
         {
             btnDeleteAll.BackColor = Color.FromArgb(255, 180, 0, 0);
         }
-
-        private void lblLogging_Click(object sender, EventArgs e)
-        {
-            cbLogging.Checked = !cbLogging.Checked;
-        }
         
         private string GetDirection()
         {
@@ -678,7 +652,7 @@ namespace WaGis_IP_Blacklister
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Logging = cbLogging.Checked;
+            Properties.Settings.Default.Logging = false; // removed logging functionality totally for now
             Properties.Settings.Default.Protocol = protDesc;
             Properties.Settings.Default.Protocol_Number = protocolNumber;
             Properties.Settings.Default.Direction = GetDirection();
@@ -704,14 +678,14 @@ namespace WaGis_IP_Blacklister
         private void btnLoadSettings_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Reload();
-            if (Properties.Settings.Default.Logging)
-            {
-                cbLogging.Checked = true;
-            }
-            else
-            {
-                cbLogging.Checked = false;
-            }
+            //if (Properties.Settings.Default.Logging)
+            //{
+            //    cbLogging.Checked = true;
+            //}
+            //else
+            //{
+            //    cbLogging.Checked = false;
+            //}
 
 
             switch (Properties.Settings.Default.Protocol)
