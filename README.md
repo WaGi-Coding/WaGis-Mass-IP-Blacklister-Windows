@@ -24,7 +24,7 @@ __How it works?__
 __How does the IP-List needs to look like?__
 
 * There is no need for special formatting.
-* The Programm will grab every IPv4 found in a List.
+* The Programm will grab every IPv4 & IPv6(>= v1.3.5) found in a List.
 * Just make sure they are seperated somehow
 
 __Additional Info__
