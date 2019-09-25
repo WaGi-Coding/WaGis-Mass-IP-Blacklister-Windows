@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -70,6 +71,18 @@ namespace WaGis_IP_Blacklister
             try
             {
                 jsonData = WaGiRequest("https://api.github.com/repos/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases/latest");
+                
+                var jsonArr = JArray.Parse(WaGiRequest("https://api.github.com/repos/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases"));
+                
+                foreach (JObject jO in jsonArr)
+                {
+                    if (true)
+                    {
+
+                    }
+                    Console.WriteLine(jO.SelectToken("tag_name"));
+
+                }
 
                 JObject jObject = JObject.Parse(jsonData);
                 newV = Convert.ToString(jObject.SelectToken("tag_name"));
@@ -81,7 +94,7 @@ namespace WaGis_IP_Blacklister
             }
             catch (Exception)
             {
-                MessageBox.Show("Seems there is an Update, but a Problem with resolving the newest Version. Checkout yourself for the new Version on Github or SourceForge", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Seems there is an Update, but a Problem with resolving the newest Version Data. Checkout yourself for the new Version on Github or SourceForge", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             newVersion = new Version(newV);            
             curVersion = new Version(Application.ProductVersion);
