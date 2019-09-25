@@ -41,8 +41,10 @@ namespace WaGis_IP_Blacklister
         
         public MainForm()
         {
-            InitializeComponent();            
-            lblInfo.Text = string.Empty;            
+            InitializeComponent();
+            lblInfo.Text = string.Empty;
+            
+            notifyIcon1.Icon = new Icon(this.Icon, 40, 40);
         }
 
         static bool Win10orWinServer()
@@ -771,5 +773,32 @@ namespace WaGis_IP_Blacklister
                 updateToolStripMenuItem.BackColor = SystemColors.Control;
             }
         }
+
+        private void notifyIcon1_Click(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Show();
+                notifyIcon1.Visible = false;
+            }
+        }
+
+        private void minimizeToSystemTrayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Hide();
+            notifyIcon1.Visible = true;
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Show();
+            notifyIcon1.Visible = false;
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
     }
 }
