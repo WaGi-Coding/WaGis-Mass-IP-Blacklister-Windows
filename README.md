@@ -1,6 +1,6 @@
 # WaGi's IP-Blacklister (Windows Firewall)
 [>DOWNLOAD HERE<](https://github.com/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases)  
-![Application Overview](https://i.imgur.com/uBFNba4.png)
+![Application Overview](https://i.imgur.com/Pn7tANy.png)
 
 
 
