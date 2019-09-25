@@ -41,8 +41,10 @@ namespace WaGis_IP_Blacklister
         
         public MainForm()
         {
-            InitializeComponent();            
-            lblInfo.Text = string.Empty;            
+            InitializeComponent();
+            lblInfo.Text = string.Empty;
+            
+            notifyIcon1.Icon = new Icon(this.Icon, 40, 40);
         }
 
         static bool Win10orWinServer()
@@ -51,7 +53,7 @@ namespace WaGis_IP_Blacklister
 
             string productName = (string)reg.GetValue("ProductName");
 
-            return (productName.Contains("Windows 10") || productName.Contains("Windows Server"));
+            return ((productName.Contains("Windows 10") || productName.Contains("Windows Server")) && !productName.Contains("2008"));
         }
 
         protected String WaGiRequest(string url)
@@ -73,17 +75,12 @@ namespace WaGis_IP_Blacklister
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            
             //Administrator check
-            if (!IsAdministrator())
-            {
-                MessageBox.Show("This Application makes changes in the Firewall. You need to run it as Administrator!", "WaGi's IP-Blacklister", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Application.Exit();                
-            }
+            //moved to Program.cs
             //////////////////////
 
             if (IsAdministrator())
-            {
+            {                
                 this.Text = $"WaGi's IP-Blacklister - v{Application.ProductVersion}";
                 btnDeleteAll.BackColor = Color.FromArgb(255, 180, 0, 0);
 
@@ -776,5 +773,32 @@ namespace WaGis_IP_Blacklister
                 updateToolStripMenuItem.BackColor = SystemColors.Control;
             }
         }
+
+        private void notifyIcon1_Click(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Show();
+                notifyIcon1.Visible = false;
+            }
+        }
+
+        private void minimizeToSystemTrayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Hide();
+            notifyIcon1.Visible = true;
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Show();
+            notifyIcon1.Visible = false;
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
     }
 }
