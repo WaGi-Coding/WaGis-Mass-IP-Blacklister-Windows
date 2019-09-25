@@ -51,7 +51,7 @@ namespace WaGis_IP_Blacklister
 
             string productName = (string)reg.GetValue("ProductName");
 
-            return (productName.Contains("Windows 10") || productName.Contains("Windows Server"));
+            return ((productName.Contains("Windows 10") || productName.Contains("Windows Server")) && !productName.Contains("2008"));
         }
 
         protected String WaGiRequest(string url)
@@ -73,17 +73,12 @@ namespace WaGis_IP_Blacklister
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            
             //Administrator check
-            if (!IsAdministrator())
-            {
-                MessageBox.Show("This Application makes changes in the Firewall. You need to run it as Administrator!", "WaGi's IP-Blacklister", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Application.Exit();                
-            }
+            //moved to Program.cs
             //////////////////////
 
             if (IsAdministrator())
-            {
+            {                
                 this.Text = $"WaGi's IP-Blacklister - v{Application.ProductVersion}";
                 btnDeleteAll.BackColor = Color.FromArgb(255, 180, 0, 0);
 
