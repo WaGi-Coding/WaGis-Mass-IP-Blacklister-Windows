@@ -115,12 +115,12 @@
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 35);
+            this.label4.Location = new System.Drawing.Point(3, 25);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(337, 98);
+            this.label4.Size = new System.Drawing.Size(337, 108);
             this.label4.TabIndex = 1;
-            this.label4.Text = "There is no need for special formatting.\r\n\r\nThe Programm will grab every IPv4 fou" +
-    "nd in a List.\r\n\r\nJust make sure they are seperated somehow";
+            this.label4.Text = "There is no need for special formatting.\r\n\r\nThe Programm will grab every IPv4 and" +
+    "/or IPv6 found in a List.\r\n\r\nJust make sure they are seperated somehow";
             this.label4.UseMnemonic = false;
             // 
             // panel3
@@ -260,13 +260,13 @@
             // 
             // label10
             // 
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(3, 35);
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(3, 25);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(263, 60);
+            this.label10.Size = new System.Drawing.Size(263, 77);
             this.label10.TabIndex = 1;
-            this.label10.Text = "It splits the IPs from the left Textbox into 10k (1k on Win7) lists and makes 1 F" +
-    "irewall Rule per 10k IPs.";
+            this.label10.Text = "It splits the IPs from the left Textbox into 10k (1k on Win7 and Server 2008) lis" +
+    "ts and makes 1 Firewall Rule per 10k IPs.";
             this.label10.UseMnemonic = false;
             // 
             // panel6
