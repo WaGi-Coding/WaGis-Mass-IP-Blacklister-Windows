@@ -31,8 +31,8 @@ namespace WaGis_IP_Blacklister
 
         int BlockSize = 1000;
 
-        int protocolNumber = Properties.Settings.Default.Protocol_Number;
-        string protDesc = Properties.Settings.Default.Protocol;
+        int protocolNumber;
+        string protDesc;
 
         //[DllImport("user32.dll", EntryPoint = "ShowCaret")] //
         //public static extern long ShowCaret(IntPtr hwnd);  //  
@@ -45,6 +45,16 @@ namespace WaGis_IP_Blacklister
             lblInfo.Text = string.Empty;
             
             notifyIcon1.Icon = new Icon(this.Icon, 40, 40);
+            
+            if (Properties.Settings.Default.UpgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.Save();
+            }
+
+            protocolNumber = Properties.Settings.Default.Protocol_Number;
+            protDesc = Properties.Settings.Default.Protocol;
         }
 
         static bool Win10orWinServer()
