@@ -134,9 +134,11 @@ namespace WaGis_IP_Blacklister
                 {
                     //MessageBox.Show($"New version {versionWeb} available! Your version: {Application.ProductVersion}");
                     Update updateform = new Update();
+                    Show();
                     updateform.ShowDialog();
                     updateToolStripMenuItem.Visible = true;
                     timerUpdateBlink.Start();
+                    timerCheckForUpdate.Stop();
                 }
 
                 /////////////////////////
