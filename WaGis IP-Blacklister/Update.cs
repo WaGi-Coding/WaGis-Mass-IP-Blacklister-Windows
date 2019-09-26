@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -65,11 +66,35 @@ namespace WaGis_IP_Blacklister
             }
         }
 
+        List<string> fullInfo;
         private void Update_Load(object sender, EventArgs e)
         {            
             try
             {
+                Version curV = new Version(Application.ProductVersion);
+
                 jsonData = WaGiRequest("https://api.github.com/repos/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases/latest");
+                
+                var jsonArr = JArray.Parse(WaGiRequest("https://api.github.com/repos/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases"));
+                fullInfo = new List<string>();
+
+                foreach (JObject jO in jsonArr)
+                {
+                    Version tempVersion = new Version(jO.SelectToken("tag_name").ToString());
+
+                    if (curV.CompareTo(tempVersion) < 0)
+                    {
+                        Console.WriteLine(tempVersion);                        
+                        fullInfo.Add(((jsonArr.First == jO) ? "" : "\n\n") + tempVersion.ToString() + ':');
+                        fullInfo.Add(jO.SelectToken("body").ToString().Split(new string[] { "---" }, StringSplitOptions.None)[1].Replace('*', '●'));                        
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+
+                }
 
                 JObject jObject = JObject.Parse(jsonData);
                 newV = Convert.ToString(jObject.SelectToken("tag_name"));
@@ -81,7 +106,7 @@ namespace WaGis_IP_Blacklister
             }
             catch (Exception)
             {
-                MessageBox.Show("Seems there is an Update, but a Problem with resolving the newest Version. Checkout yourself for the new Version on Github or SourceForge", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Seems there is an Update, but a Problem with resolving the newest Version Data. Checkout yourself for the new Version on Github or SourceForge", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             newVersion = new Version(newV);            
             curVersion = new Version(Application.ProductVersion);
@@ -100,9 +125,8 @@ namespace WaGis_IP_Blacklister
                 btnDownload.Enabled = true;
             }
 
-            string[] bodyArray = body.Split(new string[] { "---" }, StringSplitOptions.None);
-
-            richTextBox1.Text = bodyArray[1].Replace('*', '●');
+            //richTextBox1.Text = body.Split(new string[] { "---" }, StringSplitOptions.None)[1].Replace('*', '●');
+            richTextBox1.Text = string.Join("\n", fullInfo);
 
         }
     }
