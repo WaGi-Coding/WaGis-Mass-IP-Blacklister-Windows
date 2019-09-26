@@ -8,7 +8,7 @@
 
 __Why you made this?__
 
-I had to automatically block a mass of IP-Addresses. I did it with a Batch script first, but hell that was taking about 2 hours every time for 20k IPs.
+I had to automatically block a mass of IP-Addresses. I did it with a simple Batch script first, but hell that was taking about 2 hours every time for 20k IPs, so i decided to create this app after realizing the creating of rules is much much faster that way.
 
 __What is this Application for?__
 
