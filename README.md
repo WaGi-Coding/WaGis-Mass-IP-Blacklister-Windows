@@ -37,7 +37,7 @@ __Additional Info__
 __.NET Framework 4.6.1__
 
 __Tested on:__
-* Windows 10
+* Windows 10 Pro
 * Windows Server 2012 R2
 * Windows Server 2008 R2
 * Windows Server 2016
