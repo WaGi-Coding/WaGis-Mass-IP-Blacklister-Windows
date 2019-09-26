@@ -1,6 +1,6 @@
 # WaGi's IP-Blacklister (Windows Firewall)
 [>DOWNLOAD HERE<](https://github.com/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases)  
-![Application Overview](https://i.imgur.com/uBFNba4.png)
+![Application Overview](https://i.imgur.com/Pn7tANy.png)
 
 
 
@@ -8,7 +8,7 @@
 
 __Why you made this?__
 
-I had to automatically block a mass of IP-Addresses. I did it with a Batch script first, but hell that was taking about 2 hours every time for 20k IPs.
+I had to automatically block a mass of IP-Addresses. I did it with a simple Batch script first, but hell that was taking about 2 hours every time for 20k IPs, so i decided to create this app after realizing the creating of rules is much much faster that way.
 
 __What is this Application for?__
 
@@ -37,8 +37,8 @@ __Additional Info__
 __.NET Framework 4.6.1__
 
 __Tested on:__
-* Windows 10
+* Windows 10 Pro
 * Windows Server 2012 R2
-* Windows Server 2008 R2(in compatibility mode for Windows 7 only - need to fix that)
+* Windows Server 2008 R2
 * Windows Server 2016
 * Windows 7 (1k Block Size instead of 10k - Programm now does this automatically)
