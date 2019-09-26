@@ -100,40 +100,44 @@ namespace WaGis_IP_Blacklister
                 }
 
                 // Maybe Check for Updates - NOT DONE
-                try
-                {
-                    newV = WaGiRequest("https://api.github.com/repos/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases/latest");
-
-                    JObject jObject = JObject.Parse(newV);
-                    newV = Convert.ToString(jObject.SelectToken("tag_name"));
-
-                    var versionNow = new Version(Application.ProductVersion);
-                    var versionWeb = new Version(newV);
-
-                    var result = versionNow.CompareTo(versionWeb);
-
-                    if (result < 0)
-                    {
-                        //MessageBox.Show($"New version {versionWeb} available! Your version: {Application.ProductVersion}");
-                        Update updateform = new Update();
-                        updateform.ShowDialog();
-                        updateToolStripMenuItem.Visible = true;
-                        timerUpdateBlink.Start();
-                    }
-
-                    /////////////////////////
-
-                    //HideCaret(richTextBox2.Handle);
-                    richtbList.SelectionStart = richtbList.Text.Length;
-                    firewallPolicy = (INetFwPolicy2)Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2"));
-                }
-                catch (Exception)
-                {
-                }
-
-                
+                CheckForUpdate();
+                timerCheckForUpdate.Start();
             }
                         
+        }
+
+        private void CheckForUpdate()
+        {
+            try
+            {
+                newV = WaGiRequest("https://api.github.com/repos/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases/latest");
+
+                JObject jObject = JObject.Parse(newV);
+                newV = Convert.ToString(jObject.SelectToken("tag_name"));
+
+                var versionNow = new Version(Application.ProductVersion);
+                var versionWeb = new Version(newV);
+
+                var result = versionNow.CompareTo(versionWeb);
+
+                if (result < 0)
+                {
+                    //MessageBox.Show($"New version {versionWeb} available! Your version: {Application.ProductVersion}");
+                    Update updateform = new Update();
+                    updateform.ShowDialog();
+                    updateToolStripMenuItem.Visible = true;
+                    timerUpdateBlink.Start();
+                }
+
+                /////////////////////////
+
+                //HideCaret(richTextBox2.Handle);
+                richtbList.SelectionStart = richtbList.Text.Length;
+                firewallPolicy = (INetFwPolicy2)Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2"));
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private void richtbList_TextChanged(object sender, EventArgs e)
@@ -802,5 +806,9 @@ namespace WaGis_IP_Blacklister
             Application.Exit();
         }
 
+        private void timerCheckForUpdate_Tick(object sender, EventArgs e)
+        {
+            CheckForUpdate();
+        }
     }
 }
