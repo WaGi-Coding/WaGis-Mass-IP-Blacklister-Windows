@@ -66,21 +66,33 @@ namespace WaGis_IP_Blacklister
             }
         }
 
+        List<string> fullInfo;
         private void Update_Load(object sender, EventArgs e)
         {            
             try
             {
+                Version curV = new Version(Application.ProductVersion);
+
                 jsonData = WaGiRequest("https://api.github.com/repos/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases/latest");
                 
                 var jsonArr = JArray.Parse(WaGiRequest("https://api.github.com/repos/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases"));
-                
+                fullInfo = new List<string>();
+
                 foreach (JObject jO in jsonArr)
                 {
-                    if (true)
-                    {
+                    Version tempVersion = new Version(jO.SelectToken("tag_name").ToString());
 
+                    if (curV.CompareTo(tempVersion) < 0)
+                    {
+                        Console.WriteLine(tempVersion);                        
+                        fullInfo.Add(((jsonArr.First == jO) ? "" : "\n\n") + tempVersion.ToString() + ':');
+                        fullInfo.Add(jO.SelectToken("body").ToString().Split(new string[] { "---" }, StringSplitOptions.None)[1].Replace('*', '●'));                        
                     }
-                    Console.WriteLine(jO.SelectToken("tag_name"));
+                    else
+                    {
+                        break;
+                    }
+
 
                 }
 
@@ -113,9 +125,8 @@ namespace WaGis_IP_Blacklister
                 btnDownload.Enabled = true;
             }
 
-            string[] bodyArray = body.Split(new string[] { "---" }, StringSplitOptions.None);
-
-            richTextBox1.Text = bodyArray[1].Replace('*', '●');
+            //richTextBox1.Text = body.Split(new string[] { "---" }, StringSplitOptions.None)[1].Replace('*', '●');
+            richTextBox1.Text = string.Join("\n", fullInfo);
 
         }
     }
