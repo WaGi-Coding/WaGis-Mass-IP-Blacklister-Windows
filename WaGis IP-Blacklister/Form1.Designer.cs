@@ -80,13 +80,14 @@
             this.ToolstripMenuItemREMOVE = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.minimizeToSystemTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timerUpdateBlink = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.trayIconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timerCheckForUpdate = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.pnlOptions.SuspendLayout();
             this.pnlDirection.SuspendLayout();
@@ -687,6 +688,13 @@
             this.infoToolStripMenuItem.Text = "Info";
             this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
             // 
+            // minimizeToSystemTrayToolStripMenuItem
+            // 
+            this.minimizeToSystemTrayToolStripMenuItem.Name = "minimizeToSystemTrayToolStripMenuItem";
+            this.minimizeToSystemTrayToolStripMenuItem.Size = new System.Drawing.Size(147, 20);
+            this.minimizeToSystemTrayToolStripMenuItem.Text = "Minimize to System Tray";
+            this.minimizeToSystemTrayToolStripMenuItem.Click += new System.EventHandler(this.minimizeToSystemTrayToolStripMenuItem_Click);
+            // 
             // updateToolStripMenuItem
             // 
             this.updateToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
@@ -695,13 +703,6 @@
             this.updateToolStripMenuItem.Text = "Update available!";
             this.updateToolStripMenuItem.Visible = false;
             this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
-            // 
-            // minimizeToSystemTrayToolStripMenuItem
-            // 
-            this.minimizeToSystemTrayToolStripMenuItem.Name = "minimizeToSystemTrayToolStripMenuItem";
-            this.minimizeToSystemTrayToolStripMenuItem.Size = new System.Drawing.Size(147, 20);
-            this.minimizeToSystemTrayToolStripMenuItem.Text = "Minimize to System Tray";
-            this.minimizeToSystemTrayToolStripMenuItem.Click += new System.EventHandler(this.minimizeToSystemTrayToolStripMenuItem_Click);
             // 
             // timerUpdateBlink
             // 
@@ -738,6 +739,11 @@
             this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
+            // timerCheckForUpdate
+            // 
+            this.timerCheckForUpdate.Interval = 600000;
+            this.timerCheckForUpdate.Tick += new System.EventHandler(this.timerCheckForUpdate_Tick);
             // 
             // MainForm
             // 
@@ -842,6 +848,7 @@
         private System.Windows.Forms.ContextMenuStrip trayIconContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.Timer timerCheckForUpdate;
     }
 }
 
