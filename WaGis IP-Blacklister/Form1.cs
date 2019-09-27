@@ -134,9 +134,11 @@ namespace WaGis_IP_Blacklister
                 {
                     //MessageBox.Show($"New version {versionWeb} available! Your version: {Application.ProductVersion}");
                     Update updateform = new Update();
+                    Show();
                     updateform.ShowDialog();
                     updateToolStripMenuItem.Visible = true;
                     timerUpdateBlink.Start();
+                    timerCheckForUpdate.Stop();
                 }
 
                 /////////////////////////
@@ -193,7 +195,7 @@ namespace WaGis_IP_Blacklister
             }
         }
 
-        private void btnADD_Click(object sender, EventArgs e)
+        private async void btnADD_Click(object sender, EventArgs e)
         {
             try
             {
@@ -208,66 +210,13 @@ namespace WaGis_IP_Blacklister
                 cbAutoOnOff.Enabled = false;
 
 
-
-                //Only grab all IPv4/6 IPs/ranges and put them in a List
-
-                //IPv6 CIDR aka. IP-Range support REGEX by WaGi-Coding--- (\b((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))(%.+)?s*(\/([0-9]|[1-9][0-9]|1[0-1][0-9]|12[0-8]))?\b)(?!\/)
-                //IPv4 CIDR aka IP-Range support by WaGi-Coding---- (\b([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?\b)(?!\/)
-                allips.AddRange(Regex.Matches(richtbList.Text, @"((\b((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))(%.+)?s*(\/([0-9]|[1-9][0-9]|1[0-1][0-9]|12[0-8]))?\b)(?!\/))|((\b([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?\b)(?!\/))", RegexOptions.IgnoreCase)
-                    .Cast<Match>()
-                    .Select(m => m.Value)
-                    .ToList());
-
-                ///////////////////////////////////////////////
-
-
-                //Excluding IPs here
-                if (listBoxExcludeIPs.Items.Count >= 1)
+                string ips = richtbList.Text;
+                ListBox.ObjectCollection exIPs = listBoxExcludeIPs.Items;
+                await Task.Run(() => 
                 {
-                    for (int i = 0; i < listBoxExcludeIPs.Items.Count; i++)
-                    {
-                        allips.RemoveAll(ex => ex.Contains(listBoxExcludeIPs.Items[i].ToString()));
-                    }
-                }
-                ////////////////////
-
-
-                if (!String.IsNullOrWhiteSpace(richtbList.Text) && allips.Count > 0)
-                {
-                    while (allips.Count >= 1)
-                    {
-                        List<string> list5k = new List<string>();
-                        list5k.AddRange(allips.Take(BlockSize));
-                        fiveklists.Add(list5k);
-                        if (allips.Count >= BlockSize)
-                        {
-                            allips.RemoveRange(0, BlockSize);
-                        }
-                        else if (allips.Count > 0 && allips.Count < BlockSize)
-                        {
-                            allips.RemoveRange(0, allips.Count);
-                        }
-
-                        string chain = "";
-                        foreach (string ip in list5k)
-                        {
-                            chain += ip + ',';
-                        }
-                        chain = chain.Remove(chain.Length - 1);
-
-                        if (cbInbound.Checked)
-                        {
-                            MakeRule(chain, protocolNumber, NET_FW_RULE_DIRECTION_.NET_FW_RULE_DIR_IN, "WaGi IP-Blacklist IN " + protDesc);
-                        }
-
-                        if (cbOutbound.Checked)
-                        {
-                            MakeRule(chain, protocolNumber, NET_FW_RULE_DIRECTION_.NET_FW_RULE_DIR_OUT, "WaGi IP-Blacklist OUT " + protDesc);
-                        }
-
-                        Thread.Sleep(250);
-                    }
-                }
+                    DoStuff(ips, exIPs);
+                });
+                
 
                 btnADD.Enabled = true;
                 btnDeleteAll.Enabled = true;
@@ -281,6 +230,69 @@ namespace WaGis_IP_Blacklister
                 throw;
             }
             
+        }
+
+        private void DoStuff(string IPsTextbox, ListBox.ObjectCollection ExcludeIPsListBox)
+        {
+            //Only grab all IPv4/6 IPs/ranges and put them in a List
+
+            //IPv6 CIDR aka. IP-Range support REGEX by WaGi-Coding--- (\b((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))(%.+)?s*(\/([0-9]|[1-9][0-9]|1[0-1][0-9]|12[0-8]))?\b)(?!\/)
+            //IPv4 CIDR aka IP-Range support by WaGi-Coding---- (\b([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?\b)(?!\/)
+            allips.AddRange(Regex.Matches(IPsTextbox, @"((\b((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))(%.+)?s*(\/([0-9]|[1-9][0-9]|1[0-1][0-9]|12[0-8]))?\b)(?!\/))|((\b([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?\b)(?!\/))", RegexOptions.IgnoreCase)
+                .Cast<Match>()
+                .Select(m => m.Value)
+                .ToList());
+
+            ///////////////////////////////////////////////
+
+
+            //Excluding IPs here
+            if (listBoxExcludeIPs.Items.Count >= 1)
+            {
+                for (int i = 0; i < listBoxExcludeIPs.Items.Count; i++)
+                {
+                    allips.RemoveAll(ex => ex.Contains(ExcludeIPsListBox[i].ToString()));
+                }
+            }
+            ////////////////////
+
+
+            if (!String.IsNullOrWhiteSpace(IPsTextbox) && allips.Count > 0)
+            {
+                while (allips.Count >= 1)
+                {
+                    List<string> list5k = new List<string>();
+                    list5k.AddRange(allips.Take(BlockSize));
+                    fiveklists.Add(list5k);
+                    if (allips.Count >= BlockSize)
+                    {
+                        allips.RemoveRange(0, BlockSize);
+                    }
+                    else if (allips.Count > 0 && allips.Count < BlockSize)
+                    {
+                        allips.RemoveRange(0, allips.Count);
+                    }
+
+                    string chain = "";
+                    foreach (string ip in list5k)
+                    {
+                        chain += ip + ',';
+                    }
+                    chain = chain.Remove(chain.Length - 1);
+
+                    if (cbInbound.Checked)
+                    {
+                        MakeRule(chain, protocolNumber, NET_FW_RULE_DIRECTION_.NET_FW_RULE_DIR_IN, "WaGi IP-Blacklist IN " + protDesc);
+                    }
+
+                    if (cbOutbound.Checked)
+                    {
+                        MakeRule(chain, protocolNumber, NET_FW_RULE_DIRECTION_.NET_FW_RULE_DIR_OUT, "WaGi IP-Blacklist OUT " + protDesc);
+                    }
+
+                    Thread.Sleep(250);
+                }
+            }
         }
 
         private void btnDEL_Click(object sender, EventArgs e)
@@ -330,12 +342,12 @@ namespace WaGis_IP_Blacklister
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = "cmd.exe";           
+            startInfo.FileName = "cmd.exe";
             startInfo.Arguments = $"/C C:\\Windows\\System32\\netsh.exe advfirewall firewall delete rule name=\"WaGi IP-Blacklist {INorOUT} {protTCPorUDPorALL}\"";
             process.StartInfo = startInfo;
             process.Start();
-            process.WaitForExit();
-            Thread.Sleep(100);
+            //process.WaitForExit();
+            //Thread.Sleep(100);
             lblInfo.Text = "";
             btnADD.Enabled = true;
             btnDeleteAll.Enabled = true;            
