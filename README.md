@@ -19,7 +19,7 @@ __What is this Application for?__
 
 __How it works?__
 
-* It splits the IPs from the left Textbox into 5k lists and makes 1 Firewall Rule per 5k IPs.
+* It splits the IPs from the left Textbox into 10k lists and makes 1 Firewall Rule per 10k IPs.
 
 __How does the IP-List needs to look like?__
 
