@@ -203,6 +203,7 @@
             // 
             // btnLoadSettings
             // 
+            this.btnLoadSettings.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLoadSettings.Location = new System.Drawing.Point(3, 120);
             this.btnLoadSettings.Name = "btnLoadSettings";
             this.btnLoadSettings.Size = new System.Drawing.Size(189, 23);
@@ -213,6 +214,7 @@
             // 
             // btnSaveSettings
             // 
+            this.btnSaveSettings.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSaveSettings.Location = new System.Drawing.Point(3, 87);
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(189, 23);
