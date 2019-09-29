@@ -832,5 +832,14 @@ namespace WaGis_IP_Blacklister
         {
             CheckForUpdate();
         }
+
+        private new void Enter(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.Hand;
+        }
+        private new void Leave(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.Default;
+        }
     }
 }
