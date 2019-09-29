@@ -211,6 +211,8 @@
             this.btnLoadSettings.Text = "LOAD SETTINGS";
             this.btnLoadSettings.UseVisualStyleBackColor = true;
             this.btnLoadSettings.Click += new System.EventHandler(this.btnLoadSettings_Click);
+            this.btnLoadSettings.MouseEnter += new System.EventHandler(this.Enter);
+            this.btnLoadSettings.MouseLeave += new System.EventHandler(this.Leave);
             // 
             // btnSaveSettings
             // 
@@ -222,6 +224,8 @@
             this.btnSaveSettings.Text = "SAVE SETTINGS";
             this.btnSaveSettings.UseVisualStyleBackColor = true;
             this.btnSaveSettings.Click += new System.EventHandler(this.btnSaveSettings_Click);
+            this.btnSaveSettings.MouseEnter += new System.EventHandler(this.Enter);
+            this.btnSaveSettings.MouseLeave += new System.EventHandler(this.Leave);
             // 
             // pnlDirection
             // 
