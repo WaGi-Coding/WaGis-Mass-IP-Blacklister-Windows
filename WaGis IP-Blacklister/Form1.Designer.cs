@@ -203,6 +203,7 @@
             // 
             // btnLoadSettings
             // 
+            this.btnLoadSettings.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLoadSettings.Location = new System.Drawing.Point(3, 120);
             this.btnLoadSettings.Name = "btnLoadSettings";
             this.btnLoadSettings.Size = new System.Drawing.Size(189, 23);
@@ -213,6 +214,7 @@
             // 
             // btnSaveSettings
             // 
+            this.btnSaveSettings.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSaveSettings.Location = new System.Drawing.Point(3, 87);
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(189, 23);
@@ -687,6 +689,8 @@
             this.infoToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
             this.infoToolStripMenuItem.Text = "Info";
             this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
+            this.infoToolStripMenuItem.MouseEnter += new System.EventHandler(this.Enter);
+            this.infoToolStripMenuItem.MouseLeave += new System.EventHandler(this.Leave);
             // 
             // minimizeToSystemTrayToolStripMenuItem
             // 
@@ -694,6 +698,8 @@
             this.minimizeToSystemTrayToolStripMenuItem.Size = new System.Drawing.Size(147, 20);
             this.minimizeToSystemTrayToolStripMenuItem.Text = "Minimize to System Tray";
             this.minimizeToSystemTrayToolStripMenuItem.Click += new System.EventHandler(this.minimizeToSystemTrayToolStripMenuItem_Click);
+            this.minimizeToSystemTrayToolStripMenuItem.MouseEnter += new System.EventHandler(this.Enter);
+            this.minimizeToSystemTrayToolStripMenuItem.MouseLeave += new System.EventHandler(this.Leave);
             // 
             // updateToolStripMenuItem
             // 
@@ -703,6 +709,8 @@
             this.updateToolStripMenuItem.Text = "Update available!";
             this.updateToolStripMenuItem.Visible = false;
             this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
+            this.updateToolStripMenuItem.MouseEnter += new System.EventHandler(this.Enter);
+            this.updateToolStripMenuItem.MouseLeave += new System.EventHandler(this.Leave);
             // 
             // timerUpdateBlink
             // 
