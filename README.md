@@ -1,4 +1,4 @@
-# WaGi's IP-Blacklister (Windows Firewall)
+# WaGi Coding's IP-Blacklister (Windows Firewall)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows?label=Latest%20Version&style=for-the-badge)
 
 ![GitHub all releases](https://img.shields.io/github/downloads/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/total?label=Github%20Release%20Downloads)
