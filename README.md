@@ -26,7 +26,7 @@ __How it works?__
 
 * It splits the IPs from the left Textbox into 10k lists and makes 1 Firewall Rule per 10k IPs. (Depends on the OS Version)
 
-__How does the IP-List needs to look like?__
+__How does the IP-List need to look like?__
 
 * There is no need for special formatting.
 * The Program will grab every IPv4 & IPv6(>= v1.3.5 + IPv4 & IPv6 CIDR/Range support) found in a List.
