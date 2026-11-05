@@ -882,9 +882,6 @@ function openInfoWindow() {
 
   infoWindow = new BrowserWindow({
     width: 640,
-    theme: ['system', 'light', 'dark'].includes(settings.theme)
-      ? settings.theme
-      : DEFAULT_SETTINGS.theme,
     height: 484,
     minWidth: 640,
     maxWidth: 640,
