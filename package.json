@@ -1,0 +1,56 @@
+{
+  "name": "wagis-mass-ip-blacklister-windows",
+  "productName": "WaGis-Mass-IP-Blacklister-Windows",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Manage Windows Firewall block rules from large IP lists.",
+  "keywords": [],
+  "license": "MIT",
+  "author": {
+    "name": "Taki7o7",
+    "email": "wagi.coding@gmail.com"
+  },
+  "main": ".vite/build/main.cjs",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "installer": "npm run package && electron-builder --prepackaged out/WaGis-Mass-IP-Blacklister-Windows-win32-x64 --win nsis",
+    "make": "npm run installer",
+    "release": "npm run installer",
+    "lint": "oxlint && oxfmt --check",
+    "lint:fix": "oxlint --fix && oxfmt --write"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^8.0.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^8.0.1",
+    "@electron-forge/plugin-fuses": "^8.0.1",
+    "@electron-forge/plugin-vite": "^8.0.1",
+    "@electron/fuses": "^2.1.3",
+    "electron": "45.2.3",
+    "electron-builder": "^26.18.0",
+    "oxfmt": "^0.41.0",
+    "oxlint": "^1.91.0",
+    "vite": "^8.3.6"
+  },
+  "dependencies": {},
+  "build": {
+    "appId": "com.wagicoding.wagismassipblacklisterwindows",
+    "productName": "WaGis-Mass-IP-Blacklister-Windows",
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "icon": "public/icon.ico",
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "public/icon.ico",
+      "uninstallerIcon": "public/icon.ico",
+      "artifactName": "WaGis-Mass-IP-Blacklister-Windows.Setup.${version}.${ext}"
+    }
+  }
+}

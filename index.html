@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src https: http:;"
+    />
+    <title>WaGis-Mass-IP-Blacklister-Windows</title>
+    <link rel="icon" href="/icon.png" />
+    <link rel="stylesheet" href="/src/index.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <main class="workspace">
+        <section class="list-column" aria-label="IP list editor">
+          <textarea
+            id="ipList"
+            data-operation
+            spellcheck="false"
+            autocomplete="off"
+            aria-label="IP address list"
+            placeholder="Paste an IP list here. Any separators are accepted."
+          ></textarea>
+          <div class="list-summary" aria-live="polite">
+            <span id="lineCount">Lines: 0</span>
+            <span id="addressCount">Addresses: 0</span>
+            <span id="excludedCount">Excluded: 0</span>
+          </div>
+        </section>
+
+        <aside class="controls-column" aria-label="Firewall controls">
+          <section class="action-area" aria-label="Firewall actions">
+            <div class="action-row">
+              <button
+                id="addBtn"
+                class="action-button add-button"
+                data-operation
+                type="button"
+              >
+                ADD
+              </button>
+              <button
+                id="deleteBtn"
+                class="action-button delete-button"
+                data-operation
+                type="button"
+              >
+                DEL
+              </button>
+            </div>
+            <button
+              id="deleteAllBtn"
+              class="action-button delete-all-button"
+              data-operation
+              type="button"
+            >
+              DELETE ALL
+            </button>
+          </section>
+
+          <div class="choice-row">
+            <fieldset id="protocolGroup" class="choice-group" data-operation>
+              <legend>Protocol:</legend>
+              <label
+                ><input type="radio" name="protocol" value="ALL" checked /> ALL
+                (15+)</label
+              >
+              <label
+                ><input type="radio" name="protocol" value="TCP" /> TCP</label
+              >
+              <label
+                ><input type="radio" name="protocol" value="UDP" /> UDP</label
+              >
+            </fieldset>
+            <fieldset id="directionGroup" class="choice-group" data-operation>
+              <legend>Direction:</legend>
+              <label
+                ><input id="inbound" type="checkbox" checked /> Inbound</label
+              >
+              <label
+                ><input id="outbound" type="checkbox" checked /> Outbound</label
+              >
+            </fieldset>
+          </div>
+
+          <section class="control-group exclusion-group">
+            <h2>Exclude IPs:</h2>
+            <div
+              id="excludeList"
+              class="exclude-list"
+              role="list"
+              aria-label="Excluded IP addresses"
+            ></div>
+            <form id="excludeForm" class="exclude-form">
+              <input
+                id="excludeInput"
+                data-operation
+                type="text"
+                inputmode="text"
+                autocomplete="off"
+                placeholder="IPv4 or IPv6 address"
+                aria-label="IP address to exclude"
+              />
+              <button
+                id="addExcludeBtn"
+                class="small-button"
+                data-operation
+                type="submit"
+                aria-label="Add excluded IP"
+              >
+                ADD
+              </button>
+            </form>
+          </section>
+
+          <section class="control-group auto-group">
+            <h2>Automatic Mode:</h2>
+            <div class="interval-row">
+              <span>Do every:</span>
+              <label class="number-field"
+                ><input
+                  id="intervalHours"
+                  data-operation
+                  type="number"
+                  min="0"
+                  max="24"
+                  value="0"
+                  aria-label="Hours"
+                /><span>Hours</span></label
+              >
+              <span class="interval-colon">:</span>
+              <label class="number-field"
+                ><input
+                  id="intervalMinutes"
+                  data-operation
+                  type="number"
+                  min="0"
+                  max="59"
+                  value="5"
+                  aria-label="Minutes"
+                /><span>Minutes</span></label
+              >
+            </div>
+            <label class="check-line"
+              ><input id="doOnce" data-operation type="checkbox" checked /> Do
+              once when starting</label
+            >
+            <label class="check-line auto-toggle-line"
+              ><input id="autoToggle" type="checkbox" />
+              <strong>ON / OFF</strong></label
+            >
+          </section>
+
+          <section class="control-group url-group">
+            <label for="listUrl" class="group-label">IP-List URL:</label>
+            <input
+              id="listUrl"
+              class="url-input"
+              data-operation
+              type="url"
+              value="https://lists.blocklist.de/lists/all.txt"
+              autocomplete="url"
+            />
+            <button
+              id="downloadBtn"
+              class="small-button get-list-button"
+              data-operation
+              type="button"
+            >
+              GET LIST
+            </button>
+          </section>
+        </aside>
+      </main>
+
+      <footer class="status-bar">
+        <span
+          id="statusMessage"
+          data-state="ready"
+          role="status"
+          aria-live="polite"
+          >Ready.</span
+        >
+        <span class="block-size-note"
+          >Block size: <strong id="blockSize">10,000 IPs / rule</strong></span
+        >
+      </footer>
+    </div>
+
+    <main id="infoPage" class="info-page" hidden>
+      <section class="info-card info-purpose">
+        <h1>What is this Application for?</h1>
+        <p>
+          - Blocking a mass of IPs through the Windows Firewall<br />- Block IPs
+          from a List<br />- Interval based Blocking IPs from List<br />- Being
+          faster
+        </p>
+      </section>
+      <section class="info-card info-how">
+        <h2>How it works?</h2>
+        <p>
+          It splits the IPs from the left Textbox into 10k (1k on Win7 and
+          Server 2008) and makes 1 Firewall Rule per 10k IPs.
+        </p>
+      </section>
+      <section class="info-card info-list">
+        <h2>How the List needs to look like?</h2>
+        <p>There is no need for special formatting.</p>
+        <p>
+          The Program will grab every IPv4 and/or IPv6 found in a List.<br />Just
+          make sure they are separated somehow.
+        </p>
+      </section>
+      <section class="info-card info-support">
+        <h2>Where I can get Support?</h2>
+        <div class="contact-row">
+          <span
+            >Contact me via
+            <a href="mailto:wagi.coding@gmail.com"
+              >wagi.coding@gmail.com</a
+            ></span
+          >
+          <button class="copy-email" type="button" data-copy-email>COPY</button>
+        </div>
+      </section>
+      <section class="info-card info-donate">
+        <h2>Can we donate something?</h2>
+        <div class="contact-row">
+          <span
+            >Sure but really only if you can and want.<br />Contact me via
+            <a href="mailto:wagi.coding@gmail.com"
+              >wagi.coding@gmail.com</a
+            ></span
+          >
+          <button class="copy-email" type="button" data-copy-email>COPY</button>
+        </div>
+      </section>
+      <section class="info-card info-additional">
+        <h2>Additional Info</h2>
+        <p>
+          This programm does not change/delete any Firewall-Rules not made by
+          itself.
+        </p>
+        <p>There are no unique checks for the IPs!</p>
+        <p>
+          If you click the DEL-Button, you only delete the rules matching the
+          selected Protocol &amp; Direction.
+        </p>
+        <p>
+          Automatic-Mode will always delete the existing rules matching the
+          selected Protocol &amp; Direction.
+        </p>
+        <p>
+          This programm was mostly made to update the Firewall from
+          IP-Blacklists.
+        </p>
+      </section>
+    </main>
+
+    <script type="module" src="/src/renderer.js"></script>
+  </body>
+</html>

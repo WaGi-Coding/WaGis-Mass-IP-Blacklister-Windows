@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';"
+    />
+    <title>Info - WaGis-Mass-IP-Blacklister-Windows</title>
+    <link rel="icon" href="/icon.png" />
+  </head>
+  <body class="info-window">
+    <main class="info-page">
+      <section class="info-card info-purpose">
+        <h1>What is this Application for?</h1>
+        <p>
+          - Blocking a mass of IPs through the Windows Firewall<br />- Block IPs
+          from a List<br />- Interval based Blocking IPs from List<br />- Being
+          faster
+        </p>
+      </section>
+      <section class="info-card info-how">
+        <h2>How it works?</h2>
+        <p>
+          It splits the IPs from the left Textbox into 10k (1k on Win7 and
+          Server 2008) and makes 1 Firewall Rule per 10k IPs.
+        </p>
+      </section>
+      <section class="info-card info-list">
+        <h2>How the List needs to look like?</h2>
+        <p>There is no need for special formatting.</p>
+        <p>
+          The Program will grab every IPv4 and/or IPv6 found in a List.<br />Just
+          make sure they are separated somehow.
+        </p>
+      </section>
+      <section class="info-card info-support">
+        <h2>Where I can get Support?</h2>
+        <div class="contact-row">
+          <span>
+            Contact me via
+            <a href="mailto:wagi.coding@gmail.com">wagi.coding@gmail.com</a>
+          </span>
+          <button class="copy-email" type="button" data-copy-email>COPY</button>
+        </div>
+      </section>
+      <section class="info-card info-donate">
+        <h2>Can we donate something?</h2>
+        <div class="contact-row">
+          <span>
+            Sure but really only if you can and want.<br />Contact me via
+            <a href="mailto:wagi.coding@gmail.com">wagi.coding@gmail.com</a>
+          </span>
+          <button class="copy-email" type="button" data-copy-email>COPY</button>
+        </div>
+      </section>
+      <section class="info-card info-additional">
+        <h2>Additional Info</h2>
+        <p>
+          This programm does not change/delete any Firewall-Rules not made by
+          itself.
+        </p>
+        <p>There are no unique checks for the IPs!</p>
+        <p>
+          If you click the DEL-Button, you only delete the rules matching the
+          selected Protocol &amp; Direction.
+        </p>
+        <p>
+          Automatic-Mode will always delete the existing rules matching the
+          selected Protocol &amp; Direction.
+        </p>
+        <p>
+          This programm was mostly made to update the Firewall from
+          IP-Blacklists.
+        </p>
+      </section>
+    </main>
+    <script type="module" src="/src/info-renderer.js"></script>
+  </body>
+</html>

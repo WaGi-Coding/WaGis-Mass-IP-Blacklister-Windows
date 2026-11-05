@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';"
+    />
+    <title>Settings - WaGis-Mass-IP-Blacklister-Windows</title>
+    <link rel="icon" href="/icon.png" />
+    <link rel="stylesheet" href="/src/index.css" />
+  </head>
+  <body class="settings-window">
+    <main class="settings-page">
+      <h1>Settings</h1>
+      <section class="settings-section" aria-labelledby="appearanceHeading">
+        <h2 id="appearanceHeading">Appearance</h2>
+        <fieldset class="theme-segment">
+          <legend>Theme</legend>
+          <div class="theme-options">
+            <label
+              ><input type="radio" name="theme" value="light" /> Light</label
+            >
+            <label><input type="radio" name="theme" value="dark" /> Dark</label>
+          </div>
+        </fieldset>
+        <p
+          id="themeStatus"
+          class="settings-update-status"
+          data-state="ready"
+          role="status"
+          aria-live="polite"
+        >
+          Theme follows the system setting until Light or Dark is selected.
+        </p>
+      </section>
+      <section
+        class="settings-section settings-reset"
+        aria-labelledby="resetHeading"
+      >
+        <h2 id="resetHeading">Reset all settings</h2>
+        <p class="settings-description">
+          Restore saved preferences to defaults. Existing firewall rules are not
+          changed.
+        </p>
+        <button
+          id="resetSettingsBtn"
+          class="settings-reset-button"
+          type="button"
+        >
+          Reset all settings
+        </button>
+      </section>
+      <section class="settings-section" aria-labelledby="startupHeading">
+        <h2 id="startupHeading">Windows startup</h2>
+        <label class="settings-auto-update">
+          <input id="runAtStartup" type="checkbox" />
+          <span
+            >Start WaGi's IP-Blacklister when I sign in to Windows as
+            administrator</span
+          >
+        </label>
+        <p class="settings-description">
+          This registers a Task Scheduler entry with highest privileges.
+          Enabling it requires this app to be installed and running as
+          administrator; Windows will not ask for UAC confirmation on each
+          sign-in.
+        </p>
+        <p
+          id="startupStatus"
+          class="settings-update-status"
+          data-state="ready"
+          role="status"
+          aria-live="polite"
+        >
+          Loading startup setting...
+        </p>
+      </section>
+      <section class="settings-section" aria-labelledby="updatesHeading">
+        <h2 id="updatesHeading">Updates</h2>
+        <label class="settings-auto-update">
+          <input id="automaticUpdates" type="checkbox" />
+          <span
+            >Automatically check, download, and install updates when the app
+            starts</span
+          >
+        </label>
+        <p class="settings-description">
+          Updates are downloaded from the latest
+          WaGi-Mass-IP-Blacklister-Windows GitHub release.
+        </p>
+        <button
+          id="checkUpdatesBtn"
+          class="settings-check-button"
+          type="button"
+        >
+          Check for updates
+        </button>
+        <p
+          id="updateStatus"
+          class="settings-update-status"
+          data-state="ready"
+          role="status"
+          aria-live="polite"
+        >
+          Loading settings...
+        </p>
+      </section>
+    </main>
+    <script type="module" src="/src/settings-renderer.js"></script>
+  </body>
+</html>
