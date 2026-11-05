@@ -27,6 +27,7 @@ const UPDATE_DOWNLOAD_HOSTS = new Set([
   'objects.githubusercontent.com',
 ]);
 const STARTUP_TASK_NAME = 'WaGis-Mass-IP-Blacklister-Windows-Startup';
+const APP_TITLE = `WaGi's Mass IP-Blacklister Windows - v${app.getVersion()}`;
 
 const DEFAULT_SETTINGS = {
   protocol: 'ALL',
@@ -653,6 +654,13 @@ function broadcastTheme(theme) {
   }
 }
 
+function keepWindowTitle(window, title) {
+  window.webContents.on('page-title-updated', (event) => {
+    event.preventDefault();
+    window.setTitle(title);
+  });
+}
+
 async function downloadList(url) {
   let parsedUrl;
   try {
@@ -888,7 +896,7 @@ function openInfoWindow() {
     resizable: false,
     show: false,
     parent: mainWindow,
-    title: 'Info - WaGis-Mass-IP-Blacklister-Windows',
+    title: `Info - ${APP_TITLE}`,
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
       contextIsolation: true,
@@ -896,6 +904,7 @@ function openInfoWindow() {
     },
   });
 
+  keepWindowTitle(infoWindow, `Info - ${APP_TITLE}`);
   infoWindow.removeMenu();
   infoWindow.once('ready-to-show', () => infoWindow?.show());
 
@@ -929,7 +938,7 @@ function openSettingsWindow() {
     resizable: true,
     show: false,
     parent: mainWindow,
-    title: 'Settings - WaGis-Mass-IP-Blacklister-Windows',
+    title: `Settings - ${APP_TITLE}`,
     icon: getPublicAssetPath('icon.ico'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
@@ -938,6 +947,7 @@ function openSettingsWindow() {
     },
   });
 
+  keepWindowTitle(settingsWindow, `Settings - ${APP_TITLE}`);
   settingsWindow.removeMenu();
   settingsWindow.once('ready-to-show', () => settingsWindow?.show());
 
@@ -965,7 +975,7 @@ function createWindow({ startInTray = false } = {}) {
     height: 680,
     minWidth: 600,
     minHeight: 680,
-    title: 'WaGis-Mass-IP-Blacklister-Windows',
+    title: APP_TITLE,
     icon: getPublicAssetPath('icon.ico'),
     show: !startInTray,
     webPreferences: {
@@ -975,6 +985,7 @@ function createWindow({ startInTray = false } = {}) {
     },
   });
 
+  keepWindowTitle(mainWindow, APP_TITLE);
   mainWindow.setMenu(
     Menu.buildFromTemplate([
       {
