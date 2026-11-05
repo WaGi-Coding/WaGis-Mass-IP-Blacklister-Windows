@@ -1,51 +1,83 @@
-# WaGis-Mass-IP-Blacklister-Windows
+# 🛡️ WaGi's Mass IP Blacklister for Windows
 
-Windows desktop application for creating and managing Windows Defender Firewall block rules from IP address lists.
+![Latest GitHub release](https://img.shields.io/github/v/release/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows?label=latest%20release&style=for-the-badge)
+![GitHub release downloads](https://img.shields.io/github/downloads/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/total?label=downloads&style=for-the-badge)
+![SourceForge downloads](https://img.shields.io/sourceforge/dt/wagi-ip-blacklister?label=SourceForge%20downloads&style=for-the-badge)
+![GitHub stars](https://img.shields.io/github/stars/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows?style=social)
 
-## Anwender
+<p align="center">
+	<a href="https://github.com/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases/">⬇️ Download the latest Windows installer</a>
+</p>
+
+---
+
+**WaGi's Mass IP Blacklister** is a Windows desktop application for creating and managing Windows Defender Firewall block rules from IP address lists.
+
+## 💡 Why I Built It
+
+I needed a way to automatically block large numbers of IP addresses from blacklist feeds. My first solution was a simple batch script, but processing around 20,000 addresses could take roughly two hours. I built this app to make recurring blacklist updates much faster and easier to manage.
+
+## ⚙️ How It Works
+
+The app extracts IPv4 addresses, IPv6 addresses, and CIDR ranges from plain text, so lists do not need a special format or separator. It groups addresses into firewall rules according to the Windows version: up to 10,000 addresses per rule on Windows 10 and newer, and 1,000 on older Windows builds. This avoids creating one rule per address and makes large-list updates practical.
+
+Rules created by the app use its own naming prefix. Delete operations target only those rules; unrelated Windows Firewall rules are left untouched. Duplicate addresses are retained, and exclusions match exact addresses rather than removing a CIDR range that contains an excluded address.
+
+## ✨ Key Features
+
+- **Bulk firewall rules:** Block large IP lists in batches, with support for TCP, UDP, inbound, and outbound traffic.
+- **IPv4, IPv6, and CIDR:** Extract valid addresses and network ranges from plain-text lists.
+- **IP exclusions:** Exclude exact addresses from a list before adding firewall rules.
+- **Automatic updates:** Download a configured `.txt` list and refresh matching rules on a schedule.
+- **Windows startup:** Optionally start elevated at sign-in through Windows Task Scheduler.
+- **System tray:** Keep the app available in the tray while background updates run.
+- **Themes and in-app updates:** Choose System, Light, or Dark appearance and check GitHub Releases from Settings.
+- **Targeted rule removal:** Delete this app's rules without changing unrelated Windows Firewall rules.
+
+## 🚀 For Users
 
 ### Installation
 
-Download and run the latest `WaGis-Mass-IP-Blacklister-Windows.Setup.<version>.exe` from the project's GitHub Releases. The installer lets you choose the installation directory.
+Download and run the latest `WaGis-Mass-IP-Blacklister-Windows.Setup.<version>.exe` from [GitHub Releases](https://github.com/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases). The installer lets you choose the installation directory.
 
-The installed application requires administrator privileges to change Windows Firewall rules. Windows displays a User Account Control (UAC) prompt when you launch it manually. You can instead enable **Start with Windows as administrator** in Settings; Windows Task Scheduler then starts it with highest privileges at sign-in without a UAC prompt each time. The installer is currently unsigned, so Windows SmartScreen may show an additional warning.
+The installed app requires administrator privileges to change Windows Firewall rules. Launching it manually displays a Windows User Account Control (UAC) prompt. To start it elevated at sign-in, enable **Windows startup** in Settings while running the installed app as administrator. The installer is currently unsigned, so Windows SmartScreen may show an additional warning.
 
-### IP-Listen und Firewall-Regeln
+### Add and remove firewall rules
 
-Paste a list into the large text area or load one with **GET LIST**. A URL must use HTTP or HTTPS and end in `.txt`. Separators are flexible; the app extracts valid IPv4 and IPv6 addresses and CIDR ranges. Invalid address fragments are ignored. Duplicate addresses are retained. Exclusions match individual addresses exactly, without removing an enclosing CIDR range.
+1. Paste an IP list into the text area or select **GET LIST** to download one. List URLs must use HTTP or HTTPS and end in `.txt`.
+2. Choose **TCP**, **UDP**, or **ALL**, then select inbound and/or outbound traffic.
+3. Optionally add exact IP exclusions. Valid IPv4, IPv6, and CIDR entries are extracted; invalid address fragments are ignored and duplicates are retained.
+4. Select **ADD** to create block rules. The app batches 10,000 addresses on Windows 10 and newer, or 1,000 on older Windows builds.
+5. Select **DEL** to remove this app's rules for the selected protocol and directions, or **DELETE ALL** to remove this app's rules for all protocols in the selected directions. Unrelated firewall rules are not changed.
 
-Choose TCP, UDP, or ALL, then choose inbound and/or outbound direction. **ADD** creates block rules in batches: 10,000 addresses on Windows 10 and newer, and 1,000 on older Windows builds. **DEL** removes this app's rules for the selected protocol and directions. **DELETE ALL** removes this app's rules for the selected directions and all protocols; unrelated firewall rules are not changed.
+### Automatic mode and settings
 
-The automatic mode downloads the configured `.txt` list, removes the matching rules, then recreates them on the selected schedule. Its **ON / OFF** state is saved and resumes when the app starts. **Do once when starting** runs an update immediately when automatic mode is enabled.
+Open **Settings** from the application menu. Automatic mode downloads the configured list, removes matching rules, and recreates them on the selected schedule. Its **ON / OFF** state is saved and resumes when the app starts. **Do once when starting** runs an update immediately when automatic mode is enabled.
 
-### Settings
+- **Appearance:** Follow the Windows theme or choose Light or Dark.
+- **Updates:** Check the latest GitHub release manually or enable automatic checks, downloads, and installation at startup.
+- **Windows startup:** Register or remove the elevated Task Scheduler entry for the current Windows user.
+- **Reset all settings:** Restore defaults and remove the startup task. Existing firewall rules are not changed.
 
-Open **Settings** from the native application menu.
+Settings are stored in Electron's per-user `userData/settings.json` file.
 
-- **Appearance**: System follows the current Windows theme until Light or Dark is selected. Manual choices are saved and applied to the open app windows.
-- **Updates**: **Check for updates** checks the latest GitHub release. **Automatically check, download, and install updates when the app starts** saves the preference and enables the same check at startup.
-- **Windows startup**: registers or removes a Task Scheduler entry for the current Windows user with highest privileges. Enable it from the installed app running as administrator; Windows then starts the app elevated at sign-in without recurring UAC prompts.
-- Settings changes are saved automatically. **Reset all settings** restores defaults and removes the startup task, but does not change existing firewall rules.
+### In-app updates
 
-User settings are stored in Electron's per-user `userData/settings.json` file.
+Update checks are available in the installed Windows app, not in the development build. A release must have a tag newer than the installed version and include an installer asset named exactly `WaGis-Mass-IP-Blacklister-Windows.Setup.<version>.exe`. For example, release tag `2.0.1` must include `WaGis-Mass-IP-Blacklister-Windows.Setup.2.0.1.exe`.
 
-### Updates
+The updater downloads from GitHub over HTTPS and verifies the SHA-256 digest when GitHub supplies one. It launches the installer after the app exits. The latest release must be published before automatic updates can find a newer version.
 
-Update checks are available in the installed Windows application, not in the development build. A release must have a tag newer than the installed version and include an installer asset named exactly `WaGis-Mass-IP-Blacklister-Windows.Setup.<version>.exe`. For example, release tag `2.0.1` must include `WaGis-Mass-IP-Blacklister-Windows.Setup.2.0.1.exe`.
+## 💻 For Developers
 
-The updater downloads from GitHub over HTTPS, verifies the SHA-256 digest when GitHub supplies one, then launches the installer after the app exits. The latest release must be published before automatic updates can find a newer version.
-
-## Developer
-
-### Requirements
+### Prerequisites
 
 - Windows x64 for firewall operations and NSIS installer creation
 - Node.js compatible with the project's Vite and Electron Builder versions
-- Administrator privileges when testing firewall operations or configuring the elevated startup task
+- Administrator privileges for testing firewall operations or configuring the elevated startup task
 
-### Commands
+### Development and build commands
 
-Run from the repository root:
+Run these commands from the repository root:
 
 ```powershell
 npm install
@@ -55,27 +87,26 @@ npm run package
 npm run installer
 ```
 
-`npm start` launches the Electron Forge development app. `npm run package` creates the Forge-prepackaged app under `out/`. `npm run installer` then packages that app with electron-builder and NSIS. The installer is written to `release/WaGis-Mass-IP-Blacklister-Windows.Setup.<version>.exe`.
+`npm start` launches the Electron Forge development app. `npm run package` creates the packaged app under `out/`. `npm run installer` packages it with electron-builder and NSIS. The installer is written to `release/WaGis-Mass-IP-Blacklister-Windows.Setup.<version>.exe`.
 
-### Architecture
+### Project structure
 
-- `src/main.js`: Windows Firewall COM operations, settings persistence, Task Scheduler startup registration, automatic list refresh, GitHub update check/download/install, tray, and native windows.
-- `src/preload.js`: isolated IPC API exposed to renderers.
-- `src/renderer.js`: main IP-list and firewall interface.
-- `src/settings-renderer.js`: theme and update preferences.
+- `src/main.js`: Firewall operations, settings persistence, startup registration, automatic list refresh, updates, tray, and native windows.
+- `src/background-worker.mjs`: Background list processing, firewall work, and automatic-mode scheduling in an Electron Utility Process.
+- `src/preload.js`: Isolated IPC API exposed to renderer processes.
+- `src/renderer.js`: Main IP-list and firewall interface.
+- `src/settings-renderer.js`: Appearance, startup, and update settings.
 - `src/ip-list.mjs`: IPv4/IPv6/CIDR extraction, validation, and exclusions.
-- `index.html`, `info.html`, `settings.html`: separate Vite renderer entry points.
-- `src/index.css`: shared light/dark styling.
-- `public/icon.ico`: Windows executable, installer, window, and tray icon.
-- `public/icon.png`: renderer favicon.
+- `index.html`, `info.html`, `settings.html`: Separate Vite renderer entry points.
+- `public/icon.ico` and `public/icon.png`: Windows app, installer, tray, and renderer icons.
 
-The packaged Windows executable requests `requireAdministrator` through electron-builder's Windows manifest setting. The development command does not elevate automatically; firewall operations from a development build must be started from an elevated terminal.
+The packaged Windows executable requests `requireAdministrator` through the Windows application manifest. The development command does not elevate automatically; run it from an elevated terminal to test firewall operations.
 
-### Publishing an update
+### 📦 Publishing a GitHub Release
 
-1. Increment `version` in `package.json` using a three-part SemVer version, for example `2.0.1`.
+1. Increment `version` in `package.json`, for example to `2.0.1`.
 2. Run `npm run installer` and verify the generated Setup executable.
-3. Create and publish a GitHub Release with a matching tag such as `2.0.1`.
-4. Upload the generated installer using the exact filename `WaGis-Mass-IP-Blacklister-Windows.Setup.2.0.1.exe`.
+3. Create and publish a GitHub Release with the matching tag, such as `2.0.1`.
+4. Upload the installer as `WaGis-Mass-IP-Blacklister-Windows.Setup.2.0.1.exe`.
 
-The updater compares the GitHub release tag with `app.getVersion()` and looks for that exact asset name. A release without the matching setup asset cannot be installed by the in-app updater.
+The in-app updater compares the release tag with `app.getVersion()` and looks for that exact asset name. A release without the matching Setup executable cannot be installed by the in-app updater.
