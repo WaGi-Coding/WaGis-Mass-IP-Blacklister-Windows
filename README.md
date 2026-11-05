@@ -13,7 +13,6 @@
 	<img width="580" height="665" alt="img" src="https://github.com/user-attachments/assets/64c23d89-819f-4c4f-b5ee-6c938539bd11" />
 </p>
 
-
 ---
 
 **WaGi's Mass IP Blacklister** is a Windows desktop application for creating and managing Windows Defender Firewall block rules from IP address lists.
@@ -33,7 +32,7 @@ Rules created by the app use its own naming prefix. Delete operations target onl
 - **Bulk firewall rules:** Block large IP lists in batches, with support for TCP, UDP, inbound, and outbound traffic.
 - **IPv4, IPv6, and CIDR:** Extract valid addresses and network ranges from plain-text lists.
 - **IP exclusions:** Exclude exact addresses from a list before adding firewall rules.
-- **Automatic updates:** Download a configured `.txt` list and refresh matching rules on a schedule.
+- **Automatic updates:** Download a configured plain-text list and refresh matching rules on a schedule.
 - **Windows startup:** Optionally start elevated at sign-in through Windows Task Scheduler.
 - **System tray:** Keep the app available in the tray while background updates run.
 - **Themes and in-app updates:** Choose System, Light, or Dark appearance and check GitHub Releases from Settings.
@@ -49,7 +48,7 @@ The installed app requires administrator privileges to change Windows Firewall r
 
 ### Add and remove firewall rules
 
-1. Paste an IP list into the text area or select **GET LIST** to download one. List URLs must use HTTP or HTTPS and end in `.txt`.
+1. Paste an IP list into the text area or select **GET LIST** to download one. List URLs must use HTTP or HTTPS; no particular file extension is required.
 2. Choose **TCP**, **UDP**, or **ALL**, then select inbound and/or outbound traffic.
 3. Optionally add exact IP exclusions. Valid IPv4, IPv6, and CIDR entries are extracted; invalid address fragments are ignored and duplicates are retained.
 4. Select **ADD** to create block rules. The app batches 10,000 addresses on Windows 10 and newer, or 1,000 on older Windows builds.

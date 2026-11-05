@@ -221,14 +221,11 @@ async function downloadList(url) {
   try {
     parsedUrl = new URL(url);
   } catch {
-    throw new Error('Enter a valid .txt URL.');
+    throw new Error('Enter a valid URL.');
   }
 
   if (!['http:', 'https:'].includes(parsedUrl.protocol)) {
     throw new Error('Only HTTP and HTTPS list URLs are supported.');
-  }
-  if (!parsedUrl.pathname.toLowerCase().endsWith('.txt')) {
-    throw new Error('The IP list URL must end in .txt.');
   }
 
   const response = await fetch(parsedUrl, {
