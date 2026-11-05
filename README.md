@@ -5,8 +5,9 @@
 ![SourceForge downloads](https://img.shields.io/sourceforge/dt/wagi-ip-blacklister?label=SourceForge%20downloads&style=for-the-badge)
 ![GitHub stars](https://img.shields.io/github/stars/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows?style=social)
 
+
 <p align="center">
-	<a href="https://github.com/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases/">⬇️ Download the latest Windows installer</a>
+  <a href="https://github.com/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases/"><img alt="Download" src="https://i.imgur.com/IMSXFnA.png"/></a>
 </p>
 
 <p align="center">
