@@ -9,6 +9,11 @@
 	<a href="https://github.com/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/releases/">⬇️ Download the latest Windows installer</a>
 </p>
 
+<p align="center">
+	<img width="580" height="665" alt="img" src="https://github.com/user-attachments/assets/64c23d89-819f-4c4f-b5ee-6c938539bd11" />
+</p>
+
+
 ---
 
 **WaGi's Mass IP Blacklister** is a Windows desktop application for creating and managing Windows Defender Firewall block rules from IP address lists.
