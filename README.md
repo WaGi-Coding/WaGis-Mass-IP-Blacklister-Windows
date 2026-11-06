@@ -1,4 +1,4 @@
-# 🛡️ WaGi's Mass IP Blacklister for Windows
+# 🛡️ WaGi's Mass IP Blacklister for Windows v2
 
 ![Latest GitHub release](https://img.shields.io/github/v/release/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows?label=latest%20release&style=for-the-badge)
 ![GitHub release downloads](https://img.shields.io/github/downloads/WaGi-Coding/WaGis-Mass-IP-Blacklister-Windows/total?label=downloads&style=for-the-badge)
