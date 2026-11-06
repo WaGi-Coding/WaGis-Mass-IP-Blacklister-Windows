@@ -6,6 +6,7 @@ import {
   ipcMain,
   Menu,
   nativeImage,
+  shell,
   Tray,
 } from 'electron';
 import { createHash } from 'node:crypto';
@@ -423,6 +424,7 @@ let tray;
 let trayUnavailableReason;
 let autoTimer;
 let autoRunning = false;
+let secondInstancePending = false;
 
 function getPublicAssetPath(fileName) {
   const basePath = app.isPackaged ? process.resourcesPath : app.getAppPath();
@@ -882,11 +884,11 @@ function openInfoWindow() {
 
   infoWindow = new BrowserWindow({
     width: 640,
-    height: 484,
+    height: 550,
     minWidth: 640,
     maxWidth: 640,
-    minHeight: 484,
-    maxHeight: 484,
+    minHeight: 550,
+    maxHeight: 550,
     resizable: false,
     show: false,
     parent: mainWindow,
@@ -899,6 +901,18 @@ function openInfoWindow() {
   });
 
   keepWindowTitle(infoWindow, `Info - ${APP_TITLE}`);
+  infoWindow.webContents.setWindowOpenHandler(({ url }) => {
+    try {
+      const destination = new URL(url);
+      if (
+        destination.protocol === 'https:' &&
+        ['ko-fi.com', 'buymeacoff.ee'].includes(destination.hostname)
+      ) {
+        void shell.openExternal(destination.href);
+      }
+    } catch {}
+    return { action: 'deny' };
+  });
   infoWindow.removeMenu();
   infoWindow.once('ready-to-show', () => infoWindow?.show());
 
@@ -1016,6 +1030,19 @@ function createWindow({ startInTray = false } = {}) {
 
 app.setAppUserModelId('com.wagicoding.wagismassipblacklisterwindows');
 
+const hasSingleInstanceLock = app.requestSingleInstanceLock();
+if (hasSingleInstanceLock) {
+  app.on('second-instance', () => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      void showMainWindow();
+    } else {
+      secondInstancePending = true;
+    }
+  });
+} else {
+  app.quit();
+}
+
 ipcMain.handle('load-settings', () => loadSettings());
 ipcMain.handle('reset-settings', () => resetSettings());
 ipcMain.handle('set-run-at-startup', (_event, enabled) =>
@@ -1076,23 +1103,25 @@ ipcMain.handle('delete-all-rules', (_event, directions) =>
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(async () => {
-  const settings = await loadSettings();
-  const startInTray =
-    process.argv.includes('--autostart') && settings.startMinimized;
-  createWindow({ startInTray });
-  if (!globalShortcut.register('CommandOrControl+Alt+W', showMainWindow)) {
-    console.warn('Could not register Ctrl+Alt+W to restore the main window.');
-  }
-
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
+if (hasSingleInstanceLock) {
+  app.whenReady().then(async () => {
+    const settings = await loadSettings();
+    const startInTray =
+      process.argv.includes('--autostart') && settings.startMinimized;
+    createWindow({ startInTray });
+    if (secondInstancePending) void showMainWindow();
+    if (!globalShortcut.register('CommandOrControl+Alt+W', showMainWindow)) {
+      console.warn('Could not register Ctrl+Alt+W to restore the main window.');
     }
+
+    // On OS X it's common to re-create a window in the app when the dock icon is clicked.
+    app.on('activate', () => {
+      if (BrowserWindow.getAllWindows().length === 0) {
+        createWindow();
+      }
+    });
   });
-});
+}
 
 app.on('will-quit', () => globalShortcut.unregisterAll());
 
