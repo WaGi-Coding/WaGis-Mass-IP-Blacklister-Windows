@@ -1,7 +1,7 @@
 {
   "name": "wagis-mass-ip-blacklister-windows",
   "productName": "WaGis-Mass-IP-Blacklister-Windows",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "private": true,
   "description": "Manage Windows Firewall block rules from large IP lists.",
   "keywords": [],
@@ -33,6 +33,9 @@
     "vite": "^8.3.6"
   },
   "dependencies": {},
+  "overrides": {
+    "minimatch": "11.0.1"
+  },
   "build": {
     "appId": "com.wagicoding.wagismassipblacklisterwindows",
     "productName": "WaGis-Mass-IP-Blacklister-Windows",
